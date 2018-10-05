@@ -1,0 +1,51 @@
+- platform: darksky
+  api_key: !secret darkskyapi
+  language: ru
+#  update_interval: '00:30'
+#    forecast:
+#      - 1
+#      - 2
+#      - 3
+#      - 4
+#      - 5
+  monitored_conditions:
+    - summary
+#    - icon
+#    - nearest_storm_distance
+#    - nearest_storm_bearing
+    - precip_type
+    - precip_intensity
+#    - precip_probability
+    - temperature
+#    - apparent_temperature
+#    - dew_point
+    - wind_speed
+#    - wind_bearing
+    - cloud_cover
+    - humidity
+    - pressure
+#    - visibility
+#    - ozone
+#    - minutely_summary
+#    - hourly_summary
+#    - daily_summary
+#    - temperature_high
+#    - temperature_low
+#    - apparent_temperature_high
+#    - apparent_temperature_low
+#    - precip_intensity_max
+    - uv_index
+
+#- platform: yweather
+ # woeid: 922221
+#  forecast: 3
+ # monitored_conditions:
+#    - weather
+#    - weather_current
+#    - temp_min
+#    - temp_max
+#    - wind_speed
+#    - pressure
+#    - visibility
+#    - humidity
+#    - temperature

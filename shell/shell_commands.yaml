@@ -1,0 +1,4 @@
+restart_homeassistant: "sudo systemctl restart home-assistant@homeassistant"
+#git_pull: /home/homeassistant/.homeassistant/bash/git_pull.sh
+#renew_ssl: ~/certbot/certbot-auto renew --quiet --no-self-upgrade --standalone --preferred-challenges tls-sni-01 --tls-sni-01-port 8123 --pre-hook "sudo systemctl stop home-assistant@homeassistant.service" --post-hook "sudo systemctl start home-assistant@homeassistant.service"
+#/etc/letsencrypt/live

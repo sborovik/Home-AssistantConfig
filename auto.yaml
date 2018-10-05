@@ -1,0 +1,66 @@
+auto.yaml
+  - alias: morning light on
+  trigger: time
+  - at: 06:05:00
+  platform: time
+  action:
+    - data:
+     entity_id: switch.sonoff
+     service: switch.turn_on
+     initial_state: false
+
+   - id: '1538150299003'
+    alias: morning light off
+   trigger:
+     - at: 07:15:00
+     platform: time
+     action:
+       - data:
+         entity_id: switch.sonoff
+         service: switch.turn_off
+         initial_state: false
+
+# - id: '1538150299004'
+  - alias: light off timer
+# initial_state: false
+    trigger:
+    - platform: state
+      entity_id: switch.sonoff
+      to: 'on'
+      action:
+#    - data:
+#     - service: switch.turn_on
+        - delay: 00:15:00 #'00:{{ states.input_number.bedroomtimer.state | int }}:00'
+#        minutes:
+        - service: switch.turn_off
+         entity_id: switch.sonoff
+
+
+
+#- id: '1538420516901'
+ # alias: sleeping off light
+#  trigger:
+#  - at: '23:30'
+#    platform: time
+#  condition: []
+#  action:
+ # - data:
+#      entity_id: switch.sonoff
+#    service: switch.turn_off
+
+#- alias: " Automatically turn off"
+ # trigger:
+#    - platform: state
+#      entity_id: switch.sonoff
+#      to: 'on'
+ # action:
+#    - service: script.turn_off
+#      entity_id: script.sonoff
+#- alias: "Pool: reset timer"
+#  trigger:
+#    - platform: state
+#      entity_id: switch.sonoff
+#      to: 'off'
+#  action:
+#    - service: script.turn_off
+#      entity_id: script.sonoff

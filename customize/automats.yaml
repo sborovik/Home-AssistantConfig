@@ -1,0 +1,5 @@
+automation.morning_on:
+  friendly_name: 'вкл ранкове світло'
+ # icon: mdi:thermometer
+automation.morning_off:
+  friendly_name: 'викл ранкове світло'

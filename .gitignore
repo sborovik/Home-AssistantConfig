@@ -1,0 +1,11 @@
+*
+!*.yaml
+!.gitignore
+!bash
+!customize
+!devices
+!sensors
+!shell
+icloud/*
+secrets.yaml
+known_devices.yaml

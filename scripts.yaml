@@ -1,0 +1,7 @@
+sleep_timer:
+    alias: 'таймер сну вкл'
+    sequence:
+    - delay: '00:{{ states.input_number.bedroomtimer.state | int }}:00'
+    - service: switch.turn_off
+      data:
+        entity_id: switch.sonoff

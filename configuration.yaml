@@ -1,0 +1,149 @@
+homeassistant:
+  # Name of the location where Home Assistant is running
+  name: my Awesome home
+  # Location required to calculate the time the sun rises and sets
+  latitude: !secret latitude
+  longitude: !secret longitude
+  # Impacts weather/sunrise data (altitude above sea level in meters)
+  elevation: 300
+  # metric for Metric, imperial for Imperial
+  unit_system: metric
+  # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+  time_zone: Europe/Kiev
+  # Customization file
+  customize: !include_dir_merge_named customize
+
+zone:
+  - name: Home
+    latitude: !secret latitude
+    longitude: !secret longitude
+    radius: 50
+    icon: mdi:home
+    
+# Show links to resources in log and frontend
+introduction:
+
+# Enables the frontend
+frontend:
+    themes: !include themes.yaml
+
+
+# Enables configuration UI
+config:
+
+# Uncomment this if you are using SSL/TLS, running in Docker container, etc.
+# http:
+#   base_url: example.duckdns.org:8123
+
+# Checks for available updates
+# Note: This component will send some information about your system to
+# the developers to assist with development of Home Assistant.
+# For more information, please see:
+# https://home-assistant.io/blog/2016/10/25/explaining-the-updater/
+
+updater:
+  # Optional, allows Home Assistant developers to focus on popular components.
+  # include_used_components: true
+
+# Discover some devices automatically
+discovery:
+
+# Allows you to issue voice commands from the frontend in enabled browsers
+conversation:
+
+# Enables support for tracking state changes over time
+history:
+
+# View all events in a logbook
+logbook:
+
+# Enables a map showing the location of tracked devices
+map:
+
+# Track the sun
+sun:
+
+# Weather prediction
+#sensor:
+
+# Text to speech
+tts:
+  - platform: google
+
+# Cloud
+cloud:
+
+# mqtt broker
+mqtt:
+  password: !secret mqttpass
+#  discovery: true
+#  discovery_prefix: homeassistant
+
+switch: 
+ - platform: mqtt
+   name: sonoff
+   #friendly_name: Water pump switch
+   icon: mdi:lamp
+   state_topic: "/sonoff/relay/state"
+   command_topic: "/sonoff/gpio/12"
+   payload_on: "1"
+   payload_off: "0"
+   retain: true
+
+ - platform: mqtt
+   name: waterpump
+   #friendly_name: Bedroom light
+   icon: mdi:water-pump
+   state_topic: "/waterpump/relay/state"
+   command_topic: "/waterpump/gpio/12"
+   payload_on: "1"
+   payload_off: "0"
+   retain: true
+
+
+#  - platform: command_line
+#    switches:
+#      sonoff_http:
+#        command_on: "curl -X GET 192.168.1.196/control?cmd=gpio,12,1"
+#        command_off: "curl -X GET 192.168.1.196/control?cmd=gpio,12,0"
+#    friendly_name: Bedroom Lightswitch
+
+# "sudo wakeonlan 44:94:FC:6E:61:92"
+# "ssh root@192.168.0.1 'shutdown -h now'"
+
+
+device_tracker:
+  - platform: google_maps
+    username: !secret googleuser
+    password: !secret googlepasswd
+
+  - platform: icloud
+    username: !secret icloudusername
+    password: !secret icloudpasswd
+    account_name: Ol4uk
+    max_interval: 20
+    icon: mdi:cellphone-iphone
+    track_new_devices: true
+    track: yes
+    hide_if_away: false
+    track_ios: true
+    #icon: mdi:face
+
+
+input_number:
+    bedroomtimer:
+     icon: mdi:timer
+     name: 'sleep timer'
+     initial: 20
+     min: 5
+     max: 50
+     step: 5
+     
+
+
+group: !include groups.yaml
+#automation: !include_dir_merge_list automation/
+automation: !include automations.yaml
+script: !include scripts.yaml
+sensor: !include_dir_merge_list sensors/
+shell_command: !include shell/shell_commands.yaml

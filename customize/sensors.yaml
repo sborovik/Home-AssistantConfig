@@ -1,0 +1,21 @@
+sensor.dark_sky_temperature:
+  friendly_name: 'Температура'
+ # icon: mdi:thermometer
+sensor.dark_sky_daily_summary:
+  friendly_name: ' '
+sensor.dark_sky_daytime_high_temperature:
+  friendly_name: 'Максимальная температура'
+sensor.dark_sky_hourly_summary:
+  friendly_name: ' '
+sensor.dark_sky_humidity:
+  friendly_name: 'Влажность'
+sensor.dark_sky_overnight_low_temperature:
+  friendly_name: 'Минимальная температура'
+sensor.dark_sky_precip_probability:
+  friendly_name: 'Возможность осадков'
+sensor.dark_sky_summary:
+  friendly_name: ' '
+sensor.dark_sky_uv_index:
+  friendly_name: 'Ультрафиолетовый индекс'
+sensor.dark_sky_wind_speed:
+  friendly_name: 'Скорость ветра'

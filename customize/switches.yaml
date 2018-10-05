@@ -1,0 +1,7 @@
+switch.sonoff:
+  friendly_name: 'лампа в спальні'
+switch.waterpump:
+  friendly_name: 'насос'
+input_number.bedroomtimer:
+  friendly_name: 'таймер сну хв'
+  icon: mdi:timer

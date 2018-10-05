@@ -1,0 +1,14 @@
+rooms:
+ name: bedroom
+ icon: mdi:hotel
+ view: yes
+ entities:
+ - switch.sonoff
+ - automation.morning_on
+ - automation.morning_off
+ - input_number.bedroomtimer
+ - script.sleep_timer
+
+# sleep: 
+#     - automation.light_off_timer
+#     - input_number.bedroomtimer

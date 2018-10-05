@@ -1,0 +1,62 @@
+- id: '1538633801540'
+  alias: morning on
+  trigger:
+  - at: '6:05:00'
+    platform: time
+  condition: []
+  action:
+  - data:
+      entity_id: switch.sonoff
+    service: switch.turn_on
+
+- id: '1538633891700'
+  alias: morning off
+  trigger:
+  - at: '7:05:00'
+    platform: time
+  condition: []
+  action:
+  - data:
+      entity_id: switch.sonoff
+    service: switch.turn_off
+
+#- id: '1538679850904'
+#  alias: water off out home
+#  trigger: 
+#    platform: state
+#    entity_id: device_tracker.iphone6
+#    state: home
+#  action:
+#  - data:
+#      entity_id: switch.waterpump
+#    service: switch.turn_off
+
+- alias: 'water leave home'
+  trigger:
+    platform: state
+    entity_id: device_tracker.iphone6
+    to: 'not_home'
+  action:
+     - service: switch.turn_off
+       entity_id: switch.waterpump
+
+- alias: 'water at home'
+  trigger:
+    platform: state
+    entity_id: device_tracker.iphone6
+    to: 'home'
+  action:
+     - service: switch.turn_on
+       entity_id: switch.waterpump
+
+# - id: '1538680028055'
+#   alias: water on at home
+#   trigger: []
+#   condition:
+#   - condition: state
+#     entity_id: device_tracker.iphone6
+#     state: home
+#   action:
+#   - data:
+#       entity_id: switch.waterpump
+#     service: switch.turn_on
