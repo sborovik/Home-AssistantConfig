@@ -12,3 +12,4 @@ rooms:
 # sleep: 
 #     - automation.light_off_timer
 #     - input_number.bedroomtimer
+
