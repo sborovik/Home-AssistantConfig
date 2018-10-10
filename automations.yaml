@@ -1,5 +1,7 @@
+
 - id: '1538633801540'
   alias: morning on
+  initial_state: 'off'
   trigger:
   - at: '6:15:00'
     platform: time
@@ -8,8 +10,10 @@
   - data:
       entity_id: switch.sonoff
     service: switch.turn_on
+
 - id: '1538633891700'
   alias: morning off
+  initial_state: 'off'
   trigger:
   - at: '7:05:00'
     platform: time
@@ -18,6 +22,7 @@
   - data:
       entity_id: switch.sonoff
     service: switch.turn_off
+
 - alias: water leave home
   trigger:
     platform: state
@@ -26,6 +31,7 @@
   action:
   - service: switch.turn_off
     entity_id: switch.waterpump
+
 - alias: water at home
   trigger:
     platform: state

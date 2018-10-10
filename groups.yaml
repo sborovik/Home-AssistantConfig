@@ -46,3 +46,4 @@ darksky:
   - sensor.dark_sky_temperature
   - sensor.dark_sky_uv_index
   - sensor.dark_sky_wind_speed
+

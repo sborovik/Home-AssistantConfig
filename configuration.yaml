@@ -38,13 +38,11 @@ http:
   ssl_key: !secret sslkey
   ip_ban_enabled: true
   login_attempts_threshold: 5
-
-
   base_url: !secret domainname
 
 duckdns:
   domain: !secret domainname
-  access_token: !secret duckdns_token
+  access_token: !secret duckdnstoken
 
 # Checks for available updates
 # Note: This component will send some information about your system to
@@ -90,24 +88,24 @@ mqtt:
 #  discovery: true
 #  discovery_prefix: homeassistant
 
-switch: 
- - platform: mqtt
-   name: sonoff
-   icon: mdi:lamp
-   state_topic: "/sonoff/relay/state"
-   command_topic: "/sonoff/gpio/12"
-   payload_on: "1"
-   payload_off: "0"
-   retain: true
+switch: !include_dir_merge_list switches/
+ # - platform: mqtt
+ #   name: sonoff
+ #   icon: mdi:lamp
+ #   state_topic: "/sonoff/relay/state"
+ #   command_topic: "/sonoff/gpio/12"
+ #   payload_on: "1"
+ #   payload_off: "0"
+ #   retain: true
 
- - platform: mqtt
-   name: waterpump
-   icon: mdi:water-pump
-   state_topic: "/waterpump/relay/state"
-   command_topic: "/waterpump/gpio/12"
-   payload_on: "1"
-   payload_off: "0"
-   retain: true
+ # - platform: mqtt
+ #   name: waterpump
+ #   icon: mdi:water-pump
+ #   state_topic: "/waterpump/relay/state"
+ #   command_topic: "/waterpump/gpio/12"
+ #   payload_on: "1"
+ #   payload_off: "0"
+ #   retain: true
 
 vacuum:
   - platform: xiaomi_miio
@@ -124,7 +122,6 @@ vacuum:
 
 # "sudo wakeonlan 44:94:FC:6E:61:92"
 # "ssh root@192.168.0.1 'shutdown -h now'"
-
 
 device_tracker:
   - platform: google_maps
@@ -143,18 +140,15 @@ device_tracker:
     track_ios: true
     #icon: mdi:face
 
-
 input_number:
     bedroomtimer:
-#     friendly_name: 'Таймер сну'
+     name: Таймер сну
      icon: mdi:timer
-     name: 'sleep timer'
+     #name: 'sleep timer'
      initial: 20
      min: 5
      max: 50
      step: 5
-     
-
 
 group: !include groups.yaml
 #automation: !include_dir_merge_list automation/
