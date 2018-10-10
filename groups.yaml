@@ -32,6 +32,10 @@ pi:
   - sensor.time_online
   - sensor.external_ip
   - sensor.ssl_cert_expiry
+  - sensor.fastcom_download
+  - sensor.speedtest_download
+  - sensor.speedtest_ping
+  - sensor.speedtest_upload
 
 darksky: 
   name: Погода за бортом
@@ -46,4 +50,5 @@ darksky:
   - sensor.dark_sky_temperature
   - sensor.dark_sky_uv_index
   - sensor.dark_sky_wind_speed
+
 
