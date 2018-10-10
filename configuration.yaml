@@ -34,12 +34,13 @@ config:
 # Uncomment this if you are using SSL/TLS, running in Docker container, etc.
 http:
 #  api_password: YOUR_PASSWORD
-  ssl_certificate: /etc/letsencrypt/live/lezsmarthome.duckdns.org/fullchain.pem
-  ssl_key: /etc/letsencrypt/live/lezsmarthome.duckdns.org/privkey.pem
-  base_url: lezsmarthome.duckdns.org
+  ssl_certificate: !secret sslcert
+  ssl_key: !secret sslkey
+
+  base_url: !secret domainname
 
 duckdns:
-  domain: lezsmarthome.duckdns.org
+  domain: !secret domainname
   access_token: !secret duckdns_token
 
 # Checks for available updates
