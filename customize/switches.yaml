@@ -3,5 +3,6 @@ switch.sonoff:
 switch.waterpump:
   friendly_name: 'насос'
 input_number.bedroomtimer:
-  friendly_name: 'таймер сну хв'
+#  friendly_name: 'таймер сну хв'
+  name: Таймер сну 
   icon: mdi:timer

@@ -9,7 +9,40 @@ rooms:
  - input_number.bedroomtimer
  - script.sleep_timer
 
-# sleep: 
-#     - automation.light_off_timer
-#     - input_number.bedroomtimer
+system:
+  name: System
+  view: yes
+  entities:
+    - group.pi
+    - group.People
 
+people:
+  name: People
+  entities:
+    - device_tracker.iphone6
+
+pi:
+  name: Raspberry Pi
+  entities:
+  - sensor.processor_use
+  - sensor.memory_free
+  - sensor.pi_cpu_temp
+  - sensor.disk_free_
+  - sensor.last_boot
+  - sensor.time_online
+  - sensor.external_ip
+  - sensor.ssl_cert_expiry
+
+darksky: 
+  name: Погода за бортом
+  entities: 
+  - sun.sun
+  - sensor.dark_sky_cloud_coverage
+  - sensor.dark_sky_humidity
+  - sensor.dark_sky_precip
+  - sensor.dark_sky_precip_intensity
+  - sensor.dark_sky_pressure
+  - sensor.dark_sky_summary
+  - sensor.dark_sky_temperature
+  - sensor.dark_sky_uv_index
+  - sensor.dark_sky_wind_speed

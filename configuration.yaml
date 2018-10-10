@@ -21,7 +21,7 @@ zone:
     icon: mdi:home-automation
     
 # Show links to resources in log and frontend
-introduction:
+#introduction:
 
 # Enables the frontend
 frontend:
@@ -36,6 +36,9 @@ http:
 #  api_password: YOUR_PASSWORD
   ssl_certificate: !secret sslcert
   ssl_key: !secret sslkey
+  ip_ban_enabled: true
+  login_attempts_threshold: 5
+
 
   base_url: !secret domainname
 
@@ -90,7 +93,6 @@ mqtt:
 switch: 
  - platform: mqtt
    name: sonoff
-   #friendly_name: Water pump switch
    icon: mdi:lamp
    state_topic: "/sonoff/relay/state"
    command_topic: "/sonoff/gpio/12"
@@ -100,7 +102,6 @@ switch:
 
  - platform: mqtt
    name: waterpump
-   #friendly_name: Bedroom light
    icon: mdi:water-pump
    state_topic: "/waterpump/relay/state"
    command_topic: "/waterpump/gpio/12"
@@ -145,6 +146,7 @@ device_tracker:
 
 input_number:
     bedroomtimer:
+#     friendly_name: 'Таймер сну'
      icon: mdi:timer
      name: 'sleep timer'
      initial: 20

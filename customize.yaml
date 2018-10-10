@@ -1,9 +1,0 @@
-group.rooms:
-  entity_id:
-  - switch.sonoff
-  - automation.morning_light_on
-  - automation.morning_light_off
-  icon: mdi:hotel
-
-switch.sonoff:
-  friendly_name: bedroom light
