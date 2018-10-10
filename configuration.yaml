@@ -32,8 +32,15 @@ frontend:
 config:
 
 # Uncomment this if you are using SSL/TLS, running in Docker container, etc.
-# http:
-#   base_url: example.duckdns.org:8123
+http:
+#  api_password: YOUR_PASSWORD
+  ssl_certificate: /etc/letsencrypt/live/lezsmarthome.duckdns.org/fullchain.pem
+  ssl_key: /etc/letsencrypt/live/lezsmarthome.duckdns.org/privkey.pem
+  base_url: lezsmarthome.duckdns.org
+
+duckdns:
+  domain: lezsmarthome.duckdns.org
+  access_token: !secret duckdns_token
 
 # Checks for available updates
 # Note: This component will send some information about your system to
