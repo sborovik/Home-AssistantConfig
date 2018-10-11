@@ -1,6 +1,6 @@
 rooms:
- name: bedroom
- icon: mdi:hotel
+ name: спальня
+ # icon: mdi:hotel
  view: yes
  entities:
  - switch.sonoff
@@ -8,6 +8,14 @@ rooms:
  - automation.morning_off
  - input_number.bedroomtimer
  - script.sleep_timer
+
+rosik: 
+  name: кімната Ярослава
+  view: yes
+  entities: 
+    - input_number.rosikroomtimer
+    - automation.heater_auto_on_for_60_minutes_every_2_hour_from_11pm_to_7am
+    - switch.heater1
 
 system:
   name: System
@@ -32,7 +40,7 @@ pi:
   - sensor.time_online
   - sensor.external_ip
   - sensor.ssl_cert_expiry
-  - sensor.fastcom_download
+  # - sensor.fastcom_download
   - sensor.speedtest_download
   - sensor.speedtest_ping
   - sensor.speedtest_upload

@@ -2,6 +2,8 @@ switch.sonoff:
   friendly_name: 'лампа в спальні'
 switch.waterpump:
   friendly_name: 'насос'
+switch.heater1:
+  friendly_name: 'керамічна панель'
 input_number.bedroomtimer:
 #  friendly_name: 'таймер сну хв'
   name: Таймер сну 

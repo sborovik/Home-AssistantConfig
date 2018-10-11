@@ -6,15 +6,18 @@
     - type: processor_use
     - type: last_boot
 
-- platform: fastdotcom
-  minute:
-  - 0
-  - 30
+# - platform: fastdotcom
+#   minute:
+#   - 0
+#   - 30
 
 - platform: speedtest
-  minute:
-  - 0
-  - 30
+  minute: 30
+  hour: 
+    - 0
+    - 6
+    - 12 
+    - 18
   monitored_conditions:
   - ping
   - download
