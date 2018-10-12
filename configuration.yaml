@@ -72,9 +72,6 @@ map:
 # Track the sun
 sun:
 
-# Weather prediction
-#sensor:
-
 # Text to speech
 tts:
   - platform: google
@@ -89,39 +86,11 @@ mqtt:
 #  discovery_prefix: homeassistant
 
 switch: !include_dir_merge_list switches/
- # - platform: mqtt
- #   name: sonoff
- #   icon: mdi:lamp
- #   state_topic: "/sonoff/relay/state"
- #   command_topic: "/sonoff/gpio/12"
- #   payload_on: "1"
- #   payload_off: "0"
- #   retain: true
-
- # - platform: mqtt
- #   name: waterpump
- #   icon: mdi:water-pump
- #   state_topic: "/waterpump/relay/state"
- #   command_topic: "/waterpump/gpio/12"
- #   payload_on: "1"
- #   payload_off: "0"
- #   retain: true
 
 vacuum:
   - platform: xiaomi_miio
     host: 192.168.1.35
     token: !secret xiaomi_vacuum_token
-
-
-#  - platform: command_line
-#    switches:
-#      sonoff_http:
-#        command_on: "curl -X GET 192.168.1.196/control?cmd=gpio,12,1"
-#        command_off: "curl -X GET 192.168.1.196/control?cmd=gpio,12,0"
-#    friendly_name: Bedroom Lightswitch
-
-# "sudo wakeonlan 44:94:FC:6E:61:92"
-# "ssh root@192.168.0.1 'shutdown -h now'"
 
 device_tracker:
   - platform: google_maps
@@ -150,19 +119,17 @@ input_number:
      max: 50
      step: 5
     rosikroomtimer:
-     name: Таймер
+     name: Таймер опалення
      icon: mdi:timer
      #name: 'sleep timer'
      initial: 30
-     min: 1
+     min: 10
      max: 60
-     step: 1
-
-
+     step: 10
 
 group: !include groups.yaml
-#automation: !include_dir_merge_list automation/
-automation: !include automations.yaml
+automation: !include_dir_merge_list automation/
+# automation: !include automations.yaml
 script: !include scripts.yaml
 sensor: !include_dir_merge_list sensors/
 shell_command: !include shell/shell_commands.yaml
