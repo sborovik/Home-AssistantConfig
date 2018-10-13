@@ -1,0 +1,17 @@
+- alias: water leave home
+  trigger:
+    platform: state
+    entity_id: device_tracker.iphone6
+    to: not_home
+  action:
+  - service: switch.turn_off
+    entity_id: switch.waterpump
+
+- alias: water at home
+  trigger:
+    platform: state
+    entity_id: device_tracker.iphone6
+    to: home
+  action:
+  - service: switch.turn_on
+    entity_id: switch.waterpump

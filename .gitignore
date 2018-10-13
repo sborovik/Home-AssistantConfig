@@ -1,11 +1,13 @@
 *
 !*.yaml
 !.gitignore
-!bash
-!customize
+!bash/
+!automation/
+!customize/
 !devices
-!sensors
-!shell
+!sensors/
+!shell/
+!switches/
 icloud/*
 secrets.yaml
 known_devices.yaml
