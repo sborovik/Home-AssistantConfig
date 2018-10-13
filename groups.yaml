@@ -1,6 +1,6 @@
-rooms:
- name: спальня
- # icon: mdi:hotel
+bedroom:
+ name: Спальня
+ icon: mdi:hotel
  view: yes
  entities:
  - switch.sonoff
@@ -11,23 +11,44 @@ rooms:
 
 rosik: 
   name: кімната Ярослава
+  icon: mdi:baby-buggy
   view: yes
   entities: 
-    - input_number.rosikroomtimer
-    - automation.heater_auto_on_for_60_minutes_every_2_hour_from_11pm_to_7am
-    - switch.heater1
+  - input_number.rosikroomtimer
+  - automation.heater_auto_on_for_60_minutes_every_2_hour_from_11pm_to_7am
+  - switch.heater1
 
 system:
   name: System
+  icon: mdi:cellphone-settings-variant
   view: yes
   entities:
-    - group.pi
-    - group.People
+  - group.pi
+  - group.People
 
 people:
   name: People
   entities:
-    - device_tracker.iphone6
+  - device_tracker.iphone6
+  - device_tracker.serj_phone
+
+water: 
+  name: Вода
+  icon: mdi:water-off
+  view: yes
+  entities:
+  - switch.waterpump 
+  - automation.water_at_home
+  - automation.water_leave_home
+
+# forecast: 
+#   name: Прогноз
+#   icon: mdi:weather-snowy-rainy
+#   view: yes
+#   entities: 
+#   - group.darksky1
+#   - group.darksky2
+#   - group.darksky3
 
 pi:
   name: Raspberry Pi
@@ -59,4 +80,42 @@ darksky:
   - sensor.dark_sky_uv_index
   - sensor.dark_sky_wind_speed
 
+darksky1: 
+  name: Погода завтра
+  entities: 
+  - sensor.dark_sky_cloud_coverage_1
+  - sensor.dark_sky_humidity_1
+  - sensor.dark_sky_precip_1
+  - sensor.dark_sky_precip_intensity_1
+  - sensor.dark_sky_pressure_1
+  - sensor.dark_sky_summary_1
+  - sensor.dark_sky_temperature_1
+  - sensor.dark_sky_uv_index_1
+  - sensor.dark_sky_wind_speed_1
+
+darksky2: 
+  name: Погода после-завтра
+  entities: 
+  - sensor.dark_sky_cloud_coverage_2
+  - sensor.dark_sky_humidity_2
+  - sensor.dark_sky_precip_2
+  - sensor.dark_sky_precip_intensity_2
+  - sensor.dark_sky_pressure_2
+  - sensor.dark_sky_summary_2
+  - sensor.dark_sky_temperature_2
+  - sensor.dark_sky_uv_index_2
+  - sensor.dark_sky_wind_speed_2
+
+darksky3: 
+  name: Погода после-после-завтра
+  entities: 
+  - sensor.dark_sky_cloud_coverage_3
+  - sensor.dark_sky_humidity_3
+  - sensor.dark_sky_precip_3
+  - sensor.dark_sky_precip_intensity_3
+  - sensor.dark_sky_pressure_3
+  - sensor.dark_sky_summary_3
+  - sensor.dark_sky_temperature_3
+  - sensor.dark_sky_uv_index_3
+  - sensor.dark_sky_wind_speed_3
 

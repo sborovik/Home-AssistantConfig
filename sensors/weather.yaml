@@ -1,11 +1,11 @@
 - platform: darksky
   api_key: !secret darkskyapi
   language: ru
-#  update_interval: '00:30'
-#    forecast:
-#      - 1
-#      - 2
-#      - 3
+  update_interval: '00:30'
+  # forecast:
+  #  - 1
+  #  - 2
+  #  - 3
 #      - 4
 #      - 5
   monitored_conditions:

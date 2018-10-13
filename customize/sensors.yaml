@@ -19,3 +19,12 @@ sensor.dark_sky_uv_index:
   friendly_name: 'Ультрафиолетовый индекс'
 sensor.dark_sky_wind_speed:
   friendly_name: 'Скорость ветра'
+sensor.dark_sky_cloud_coverage: 
+    friendly_name: 'Облачность'
+sensor.dark_sky_pressure: 
+    friendly_name: 'Давление'
+sensor.dark_sky_precip_intensity: 
+    friendly_name: 'Количество осадков'
+sensor.dark_sky_precip: 
+    friendly_name: 'Осадки'
+

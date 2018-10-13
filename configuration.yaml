@@ -82,8 +82,8 @@ cloud:
 # mqtt broker
 mqtt:
   password: !secret mqttpass
-#  discovery: true
-#  discovery_prefix: homeassistant
+  discovery: true
+  discovery_prefix: homeassistant
 
 switch: !include_dir_merge_list switches/
 
@@ -93,9 +93,14 @@ vacuum:
     token: !secret xiaomi_vacuum_token
 
 device_tracker:
-  - platform: google_maps
-    username: !secret googleuser
-    password: !secret googlepasswd
+  # - platform: google_maps
+  #   username: !secret googleuser
+  #   password: !secret googlepasswd
+  - platform: ping
+    interval_seconds: 30
+    consider_home: 1200
+    hosts:
+      serj_phone: 192.168.1.134
 
   - platform: icloud
     username: !secret icloudusername
@@ -126,6 +131,14 @@ input_number:
      min: 10
      max: 60
      step: 10
+
+binary_sensor:
+  - platform: mqtt
+    name: heater1
+    state_topic: "homeassistant/heater1/gpio/12"
+    payload_on: "1"
+    payload_off: "0"
+
 
 group: !include groups.yaml
 automation: !include_dir_merge_list automation/
