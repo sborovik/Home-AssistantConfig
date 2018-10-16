@@ -29,8 +29,10 @@ system:
 people:
   name: People
   entities:
-  - device_tracker.iphone6
-  - device_tracker.serj_phone
+  # - device_tracker.iphone6
+  # - device_tracker.serj_phone
+  - device_tracker.iphone6_BT
+  - device_tracker.nexus_6p_BT
 
 water: 
   name: Вода

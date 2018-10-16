@@ -3,8 +3,6 @@ automation.morning_on:
  # icon: mdi:thermometer
 automation.morning_off:
   friendly_name: 'викл ранкове світло'
-automation.morning_off:
-  friendly_name: 'викл ранкове світло'
 automation.water_at_home: 
   friendly_name: 'вкл воду коли хтось вдома'
 automation.water_leave_home: 

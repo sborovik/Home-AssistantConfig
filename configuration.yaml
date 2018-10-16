@@ -36,9 +36,10 @@ http:
 #  api_password: YOUR_PASSWORD
   ssl_certificate: !secret sslcert
   ssl_key: !secret sslkey
+  base_url: !secret domainname
   ip_ban_enabled: true
   login_attempts_threshold: 5
-  base_url: !secret domainname
+
 
 duckdns:
   domain: !secret domainname
@@ -96,23 +97,27 @@ device_tracker:
   # - platform: google_maps
   #   username: !secret googleuser
   #   password: !secret googlepasswd
-  - platform: ping
-    interval_seconds: 30
-    consider_home: 1200
-    hosts:
-      serj_phone: 192.168.1.134
+  - platform: bluetooth_tracker
+    new_device_defaults:
+      track_new_devices: false
 
-  - platform: icloud
-    username: !secret icloudusername
-    password: !secret icloudpasswd
-    account_name: Ol4uk
-    max_interval: 20
-    icon: mdi:cellphone-iphone
-    track_new_devices: true
-    track: yes
-    hide_if_away: false
-    track_ios: true
-    #icon: mdi:face
+  # - platform: ping
+  #   interval_seconds: 30
+  #   consider_home: 1200
+  #   hosts:
+  #     serj_phone: 192.168.1.134
+
+  # - platform: icloud
+  #   username: !secret icloudusername
+  #   password: !secret icloudpasswd
+  #   account_name: Ol4uk
+  #   max_interval: 20
+  #   icon: mdi:cellphone-iphone
+  #   track_new_devices: true
+  #   track: yes
+  #   hide_if_away: false
+  #   track_ios: true
+  #   #icon: mdi:face
 
 input_number:
     bedroomtimer:
@@ -123,6 +128,7 @@ input_number:
      min: 5
      max: 50
      step: 5
+    
     rosikroomtimer:
      name: Таймер опалення
      icon: mdi:timer
@@ -135,7 +141,7 @@ input_number:
 binary_sensor:
   - platform: mqtt
     name: heater1
-    state_topic: "homeassistant/heater1/gpio/12"
+    state_topic: "heater1/relay/state"
     payload_on: "1"
     payload_off: "0"
 
