@@ -1,7 +1,8 @@
 - alias: water leave home
   trigger:
     platform: state
-    entity_id: device_tracker.iphone6
+    # entity_id: device_tracker.iphone6
+    entity_id: group.people
     to: not_home
   action:
   - service: switch.turn_off
@@ -10,7 +11,8 @@
 - alias: water at home
   trigger:
     platform: state
-    entity_id: device_tracker.iphone6
+    # entity_id: device_tracker.iphone6
+    entity_id: group.people
     to: home
   action:
   - service: switch.turn_on

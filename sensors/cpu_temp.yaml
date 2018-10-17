@@ -1,7 +1,7 @@
-- platform: command_line
-  name: PI CPU Temp
-#  scan_interval: 30
-  command: "cat /sys/class/thermal/thermal_zone0/temp"
-  unit_of_measurement: "°C"
-  value_template: '{{ value | multiply(0.001) }}'
-  
+# - platform: command_line
+#   name: PI CPU Temp
+#   scan_interval: 60
+#   command: "cat /sys/class/thermal/thermal_zone0/temp"
+#   unit_of_measurement: "°C"
+#   value_template: '{{ value | multiply(0.001) }}'
+#   

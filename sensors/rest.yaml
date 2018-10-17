@@ -14,6 +14,7 @@
 #        value_template: '{{ value_json['schedule'][11]['arrival'] }}'
 
 - platform: rest
+  scan_interval: 600
   resource: http://ip.jsontest.com
   name: External IP
   value_template: '{{ value_json.ip }}'

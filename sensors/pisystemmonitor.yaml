@@ -1,10 +1,23 @@
 - platform: systemmonitor
+  scan_interval: 300
   resources:
     - type: disk_free
       arg: /
     - type: memory_free
     - type: processor_use
     - type: last_boot
+
+- platform: command_line
+  name: PI CPU Temp
+  scan_interval: 60
+  command: "cat /sys/class/thermal/thermal_zone0/temp"
+  unit_of_measurement: "°C"
+  value_template: '{{ value | multiply(0.001) }}'
+
+- platform: uptime
+  name: Time Online
+  scan_interval: 600
+  unit_of_measurement: hours
 
 # - platform: fastdotcom
 #   minute:

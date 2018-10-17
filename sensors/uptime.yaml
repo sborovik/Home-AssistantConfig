@@ -1,4 +1,5 @@
-- platform: uptime
-  name: Time Online
-  unit_of_measurement: hours
+# - platform: uptime
+#   name: Time Online
+#   scan_interval: 600
+#   unit_of_measurement: hours
   

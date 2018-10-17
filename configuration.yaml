@@ -67,6 +67,9 @@ history:
 # View all events in a logbook
 logbook:
 
+recorder:
+  purge_keep_days: 10
+
 # Enables a map showing the location of tracked devices
 map:
 
@@ -88,10 +91,10 @@ mqtt:
 
 switch: !include_dir_merge_list switches/
 
-vacuum:
-  - platform: xiaomi_miio
-    host: 192.168.1.35
-    token: !secret xiaomi_vacuum_token
+# vacuum:
+#   - platform: xiaomi_miio
+#     host: 192.168.1.35
+#     token: !secret xiaomi_vacuum_token
 
 device_tracker:
   # - platform: google_maps
@@ -138,13 +141,17 @@ input_number:
      max: 60
      step: 10
 
-binary_sensor:
-  - platform: mqtt
-    name: heater1
-    state_topic: "heater1/relay/state"
-    payload_on: "1"
-    payload_off: "0"
+# binary_sensor:
+#   - platform: mqtt
+#     name: heater1
+#     state_topic: "heater1/relay/state"
+#     payload_on: "1"
+#     payload_off: "0"
 
+logger:
+  default: critical
+  logs:
+    homeassistant.components.xiaomi_miio: critical
 
 group: !include groups.yaml
 automation: !include_dir_merge_list automation/
