@@ -1,5 +1,5 @@
 - platform: systemmonitor
-  scan_interval: 300
+  scan_interval: 60
   resources:
     - type: disk_free
       arg: /
@@ -16,7 +16,7 @@
 
 - platform: uptime
   name: Time Online
-  scan_interval: 600
+  scan_interval: 120
   unit_of_measurement: hours
 
 # - platform: fastdotcom
@@ -24,15 +24,15 @@
 #   - 0
 #   - 30
 
-- platform: speedtest
-  minute: 30
-  hour: 
-    - 0
-    - 6
-    - 12 
-    - 18
-  monitored_conditions:
-  - ping
-  - download
-  - upload
-  
+# - platform: speedtest
+#   minute: 30
+#   hour: 
+#     - 0
+#     - 6
+#     - 12 
+#     - 18
+#   monitored_conditions:
+#   - ping
+#   - download
+#   - upload
+#   

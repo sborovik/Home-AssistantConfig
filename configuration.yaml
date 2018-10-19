@@ -27,7 +27,6 @@ zone:
 frontend:
     themes: !include themes.yaml
 
-
 # Enables configuration UI
 config:
 
@@ -39,7 +38,6 @@ http:
   base_url: !secret domainname
   ip_ban_enabled: true
   login_attempts_threshold: 5
-
 
 duckdns:
   domain: !secret domainname
@@ -85,22 +83,28 @@ cloud:
 
 # mqtt broker
 mqtt:
+  broker: 192.168.1.170
+  port: 1883
+  client_id: homeassistant-1
+  username: !secret mqttuser
   password: !secret mqttpass
-  discovery: true
-  discovery_prefix: homeassistant
+  # password: !secret mqttpass
+  # discovery: true
+  # discovery_prefix: homeassistant
 
 switch: !include_dir_merge_list switches/
 
-# vacuum:
-#   - platform: xiaomi_miio
-#     host: 192.168.1.35
-#     token: !secret xiaomi_vacuum_token
+vacuum:
+  - platform: xiaomi_miio
+    host: 192.168.1.35
+    token: !secret xiaomi_vacuum_token
 
 device_tracker:
   # - platform: google_maps
   #   username: !secret googleuser
   #   password: !secret googlepasswd
   - platform: bluetooth_tracker
+    interval_seconds: 300
     new_device_defaults:
       track_new_devices: false
 
@@ -148,10 +152,10 @@ input_number:
 #     payload_on: "1"
 #     payload_off: "0"
 
-logger:
-  default: critical
-  logs:
-    homeassistant.components.xiaomi_miio: critical
+# logger:
+#   default: critical
+#   logs:
+#     homeassistant.components.xiaomi_miio: critical
 
 group: !include groups.yaml
 automation: !include_dir_merge_list automation/

@@ -42,7 +42,7 @@ water:
   - switch.waterpump 
   - automation.water_at_home
   - automation.water_leave_home
-
+  - sensor.water_pump_on
 # forecast: 
 #   name: Прогноз
 #   icon: mdi:weather-snowy-rainy
@@ -52,18 +52,18 @@ water:
 #   - group.darksky2
 #   - group.darksky3
 
-xiaomi_mi: 
-  name: Xiaomi Mi Mini
-  entities: 
-    - sensor.xiaomi_mi_mini_wireless_router_bytes_received
-    - sensor.xiaomi_mi_mini_wireless_router_bytes_received
-    - sensor.xiaomi_mi_mini_wireless_router_bytes_sent
-    - sensor.xiaomi_mi_mini_wireless_router_kbytesec_received
-    - sensor.xiaomi_mi_mini_wireless_router_kbytesec_sent
-    - sensor.xiaomi_mi_mini_wireless_router_packets_received
-    - sensor.xiaomi_mi_mini_wireless_router_packets_sent
-    - sensor.xiaomi_mi_mini_wireless_router_packetssec_received
-    - sensor.xiaomi_mi_mini_wireless_router_packetssec_sent
+# xiaomi_mi: 
+#   name: Xiaomi Mi Mini
+#   entities: 
+#     - sensor.xiaomi_mi_mini_wireless_router_bytes_received
+#     - sensor.xiaomi_mi_mini_wireless_router_bytes_received
+#     - sensor.xiaomi_mi_mini_wireless_router_bytes_sent
+#     - sensor.xiaomi_mi_mini_wireless_router_kbytesec_received
+#     - sensor.xiaomi_mi_mini_wireless_router_kbytesec_sent
+#     - sensor.xiaomi_mi_mini_wireless_router_packets_received
+#     - sensor.xiaomi_mi_mini_wireless_router_packets_sent
+#     - sensor.xiaomi_mi_mini_wireless_router_packetssec_received
+#     - sensor.xiaomi_mi_mini_wireless_router_packetssec_sent
 
 pi:
   name: Raspberry Pi
@@ -95,42 +95,42 @@ darksky:
   - sensor.dark_sky_uv_index
   - sensor.dark_sky_wind_speed
 
-darksky1: 
-  name: Погода завтра
-  entities: 
-  - sensor.dark_sky_cloud_coverage_1
-  - sensor.dark_sky_humidity_1
-  - sensor.dark_sky_precip_1
-  - sensor.dark_sky_precip_intensity_1
-  - sensor.dark_sky_pressure_1
-  - sensor.dark_sky_summary_1
-  - sensor.dark_sky_temperature_1
-  - sensor.dark_sky_uv_index_1
-  - sensor.dark_sky_wind_speed_1
+# darksky1: 
+#   name: Погода завтра
+#   entities: 
+#   - sensor.dark_sky_cloud_coverage_1
+#   - sensor.dark_sky_humidity_1
+#   - sensor.dark_sky_precip_1
+#   - sensor.dark_sky_precip_intensity_1
+#   - sensor.dark_sky_pressure_1
+#   - sensor.dark_sky_summary_1
+#   - sensor.dark_sky_temperature_1
+#   - sensor.dark_sky_uv_index_1
+#   - sensor.dark_sky_wind_speed_1
 
-darksky2: 
-  name: Погода после-завтра
-  entities: 
-  - sensor.dark_sky_cloud_coverage_2
-  - sensor.dark_sky_humidity_2
-  - sensor.dark_sky_precip_2
-  - sensor.dark_sky_precip_intensity_2
-  - sensor.dark_sky_pressure_2
-  - sensor.dark_sky_summary_2
-  - sensor.dark_sky_temperature_2
-  - sensor.dark_sky_uv_index_2
-  - sensor.dark_sky_wind_speed_2
+# darksky2: 
+#   name: Погода после-завтра
+#   entities: 
+#   - sensor.dark_sky_cloud_coverage_2
+#   - sensor.dark_sky_humidity_2
+#   - sensor.dark_sky_precip_2
+#   - sensor.dark_sky_precip_intensity_2
+#   - sensor.dark_sky_pressure_2
+#   - sensor.dark_sky_summary_2
+#   - sensor.dark_sky_temperature_2
+#   - sensor.dark_sky_uv_index_2
+#   - sensor.dark_sky_wind_speed_2
 
-darksky3: 
-  name: Погода после-после-завтра
-  entities: 
-  - sensor.dark_sky_cloud_coverage_3
-  - sensor.dark_sky_humidity_3
-  - sensor.dark_sky_precip_3
-  - sensor.dark_sky_precip_intensity_3
-  - sensor.dark_sky_pressure_3
-  - sensor.dark_sky_summary_3
-  - sensor.dark_sky_temperature_3
-  - sensor.dark_sky_uv_index_3
-  - sensor.dark_sky_wind_speed_3
+# darksky3: 
+#   name: Погода после-после-завтра
+#   entities: 
+#   - sensor.dark_sky_cloud_coverage_3
+#   - sensor.dark_sky_humidity_3
+#   - sensor.dark_sky_precip_3
+#   - sensor.dark_sky_precip_intensity_3
+#   - sensor.dark_sky_pressure_3
+#   - sensor.dark_sky_summary_3
+#   - sensor.dark_sky_temperature_3
+#   - sensor.dark_sky_uv_index_3
+#   - sensor.dark_sky_wind_speed_3
 
