@@ -99,32 +99,37 @@ vacuum:
     host: 192.168.1.35
     token: !secret xiaomi_vacuum_token
 
+xiaomi_aqara:
+  gateways:
+    - mac: !secret mi_gateway_mac
+      key: !secret mi_gateway_key
+
 device_tracker:
   # - platform: google_maps
   #   username: !secret googleuser
   #   password: !secret googlepasswd
   - platform: bluetooth_tracker
-    interval_seconds: 300
+    interval_seconds: 120
     new_device_defaults:
       track_new_devices: false
 
-  # - platform: ping
-  #   interval_seconds: 30
-  #   consider_home: 1200
-  #   hosts:
-  #     serj_phone: 192.168.1.134
+  - platform: ping
+    interval_seconds: 60
+    consider_home: 1200
+    hosts:
+      serj_phone: 192.168.1.134
 
-  # - platform: icloud
-  #   username: !secret icloudusername
-  #   password: !secret icloudpasswd
-  #   account_name: Ol4uk
-  #   max_interval: 20
-  #   icon: mdi:cellphone-iphone
-  #   track_new_devices: true
-  #   track: yes
-  #   hide_if_away: false
-  #   track_ios: true
-  #   #icon: mdi:face
+  - platform: icloud
+    username: !secret icloudusername
+    password: !secret icloudpasswd
+    account_name: Ol4uk
+    max_interval: 20
+    icon: mdi:cellphone-iphone
+    track_new_devices: true
+    track: yes
+    hide_if_away: false
+    track_ios: true
+    #icon: mdi:face
 
 input_number:
     bedroomtimer:
@@ -135,6 +140,14 @@ input_number:
      min: 5
      max: 50
      step: 5
+
+    house_temp:
+     name: Температура 
+     icon: mdi:timer
+     initial: 18
+     min: 14
+     max: 24
+     step: 1
     
     rosikroomtimer:
      name: Таймер опалення
@@ -145,12 +158,21 @@ input_number:
      max: 60
      step: 10
 
-# binary_sensor:
-#   - platform: mqtt
-#     name: heater1
-#     state_topic: "heater1/relay/state"
-#     payload_on: "1"
-#     payload_off: "0"
+binary_sensor: 
+  - platform: mqtt
+    name: Rosik's heater
+    device_class: heat
+    state_topic: "/heater1/gpio/12"
+    payload_on: "1"
+    payload_off: "0"
+
+  - platform: command_line
+    name: Mosquitto 
+    command: sudo systemctl status mosquitto.service | awk 'FNR==3 { print $3 }' 
+    device_class: connectivity
+    payload_on: "(running)"
+    payload_off: "(dead)"
+
 
 # logger:
 #   default: critical
