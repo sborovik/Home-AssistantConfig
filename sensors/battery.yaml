@@ -1,0 +1,16 @@
+
+
+
+# sensor:
+#  - platform: template
+#    sensors:
+#     battery_iphone:
+#         friendly_name: iPhone Battery
+#         unit_of_measurement: '%'
+#         value_template: >-
+#             {%- if device_tracker.iphone6.attributes.battery %}
+#                 {{ device_tracker.iphone6.attributes.battery | round }}
+#             {% else %}
+#                 {{ states.sensor.battery_iphone6.state }}
+#             {%- endif %}4
+#         device_class: battery

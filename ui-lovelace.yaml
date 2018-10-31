@@ -1,468 +1,311 @@
 title: My Awesome Home
 background: center / cover no-repeat url("/background.png") fixed
 views:
+######################  
   - title: Home
     id: home
     background: radial-gradient(crimson, skyblue)
     theme: dark-mode
-    #badges:
-    #  - device_tracker.iphone_bt
-    #  - device_tracker.iphone_pavel_bt
-    cards:
-      - type: entities
-        title: Общее
-        background: radial-gradient(crimson, skyblue)
-        theme: dark-mode
-        show_header_toggle: false
-        entities:
-          #- input_select.alarm_status
-          - entity: alarm_control_panel.home
-            secondary_info: last-changed
-          - input_boolean.disable_doorbell
-          - input_boolean.guest_mode
-          - entity: binary_sensor.door_window_sensor_158d0001840154
-            secondary_info: last-changed
+    cards:  
+    - type: picture-elements
+      image: /local/welcome-home.png
+      elements:
+      - type: icon
+        icon: mdi:home-outline
+        entity: climate.home_gas_heater
+        tap_action: more-info
+        style:
+          top: 82%
+          left: 15%              
+          color: white
+      - type: state-label
+        entity: sensor.temperature_158d00023cf7f5
+        style:
+          top: 95%
+          left: 15%
+          color: white
+      - type: icon
+        icon: mdi:baby-buggy
+        entity: climate.rosik_ceramik_heater
+        tap_action: more-info
+        style:
+          top: 82%
+          left: 85%              
+          color: white
+      - type: state-label
+        entity: sensor.temperature_158d00024781ee
+        style:
+          top: 95%
+          left: 85%
+          color: white
+    - type: entities
+      title: Газовий котел
+      show_header_toggle: false
+      entities:
+        - entity: climate.home_gas_heater
+          name: клімат-контроль
+        - entity: switch.gas_boiler
+          name: газовий котел
+          secondary_info: last-changed
+    - type: entities
+      title: Дитяча
+      show_header_toggle: false
+      entities:
+        - entity: climate.rosik_ceramik_heater
+          name: клімат-контроль
+        - entity: switch.heater1
+          secondary_info: last-changed
+          name: керамічна панель
+        - entity: sensor.heater_on
+          name: годин роботи обігрівача
+    - type: history-graph
+      title: Температура та Вологість
+      entities:
+        - entity: sensor.temperature_158d00023cf7f5
+          name: кухня
+        - entity: sensor.temperature_158d00024781ee
+          name: дитяча
+        - entity: sensor.dark_sky_temperature 
+          name: за бортом
+    # - type: history-graph
+    #   title: Вологість
+    #   entities:
+        - entity: sensor.humidity_158d00024781ee
+          name: дитяча
+        - entity: sensor.humidity_158d00023cf7f5
+          name: кухня
+    - type: entities
+      title: Вода
+      show_header_toggle: false
+      entities: 
+        - entity: switch.waterpump
+          name: насос
+          secondary_info: last-changed
+        - entity: sensor.water_pump_on
+          name: годин активності
+        - entity: binary_sensor.water_leak_sensor_158d00023a7ccf
+          name: датчик протікання
+          secondary_info: last-changed
+        - entity: automation.water_at_home
+          name: Вкл воду коли ми вдома
+        - entity: automation.water_leave_home
+          name: Викл воду коли нікого вдома
+    - type: entities
+      title: Спальня
+      show_header_toggle: false
+      entities:
+        - entity: light.gateway_light_7c49eb1a6912
+          name: нічник
+        - entity: sensor.illumination_7c49eb1a6912
+          name: освітленність
+        - entity: switch.sonoff
+          name: лампа
 
-          #- input_boolean.vacation_mode
-
-      - type: entities
-        title: Гостиная
-        background: radial-gradient(crimson, skyblue)
-        theme: dark-mode
-        show_header_toggle: false
-        entities:
-          - sensor.temperature_158d000129ab32
-          - sensor.humidity_158d000129ab32
-          - light.yeebigroom
-          #- media_player.apple_tv_2
-          #- media_player.google_home
-         # - group.ac
-          - input_boolean.turn_on_tv
-          - input_boolean.turn_on_tv_sound
-          - sensor.pc_power
-          - input_boolean.thermobool
-          - input_number.sliderac
-          - switch.original_xiaomi_mi_smart_wifi_socket
-
-      - type: entities
-        title: Спальня
-        show_header_toggle: false
-        entities:
-          - sensor.temperature_158d0001573ea5
-          - sensor.humidity_158d0001573ea5
-          - sensor.air_purifier_aqi
-          - light.yeebedroom
-          - vacuum.xiaomi_vacuum_cleaner
-          - fan.xiaomi_miio_device
-
-      - type: entities
-        title: Коридор
-        show_header_toggle: false
-        entities:
-          - switch.wall_switch_158d00014ddc4f
-          - entity: binary_sensor.door_window_sensor_158d0001840154
-            secondary_info: last-changed
-          - entity: binary_sensor.motion_sensor_158d000158281b
-            secondary_info: last-changed
-          - light.gateway_light_f0b429cc3ea7
-         # - input_boolean.disable_doorbell
-         # - input_boolean.guest_mode
-
-      - type: entities
-        title: Кухня
-        show_header_toggle: false
-        entities:
-          - sensor.temperature_158d00022cc1c4
-          - sensor.humidity_158d00022cc1c4
-          - sensor.pressure_158d00022cc1c4
-          - switch.wall_switch_left_158d00012bad35
-          - entity: binary_sensor.motion_sensor_158d000113c470
-            secondary_info: last-changed
-          - binary_sensor.water_leak_sensor_158d0001d78dda
-
-      - type: entities
-        title: Ванная
-        show_header_toggle: false
-        entities:
-          - sensor.temperature_158d000159f070
-          - sensor.humidity_158d000159f070
-          - switch.wall_switch_right_158d00012bad35
-          - binary_sensor.water_leak_sensor_158d0001d72deb
-          - entity: binary_sensor.motion_sensor_158d00015da341
-            secondary_info: last-changed
-
-      - type: entities
-        title: Детская
-        show_header_toggle: false
-        entities:
-          - sensor.temperature_158d00015aea48
-          - sensor.humidity_158d00015aea48
-
-      - type: entities
-        entities:
-          - entity: device_tracker.iphone_bt
-            secondary_info: last-changed
-          - entity: device_tracker.iphone_pavel_bt
-            secondary_info: last-changed
-
-      - type: entities
-        title: Время в пути
-        show_header_toggle: false
-        entities:
-         # - sensor.phone_to_home_car
-          - input_boolean.from_work_on_auto
-          - sensor.home_to_work_car
-          - sensor.home_to_work_car_waze
-          - sensor.work_to_home_car
-          - sensor.work_to_home_car_waze
-          - sensor.home_to_work_bus
-          - sensor.work_to_home_bus
-
-      - type: entities
-        title: За бортом
-        show_header_toggle: false
-        entities:
-          - sensor.dark_sky_daily_summary
-          - sensor.dark_sky_hourly_summary
-          - sensor.dark_sky_summary
-          - sensor.dark_sky_temperature
-          - sensor.dark_sky_humidity
-          - sensor.dark_sky_daytime_high_temperature
-          - sensor.dark_sky_overnight_low_temperature
-          - sensor.dark_sky_precip_probability
-          - sensor.dark_sky_uv_index
-          - sensor.dark_sky_wind_speed
-          - sun.sun
-
-      # - type: iframe
-      #   url: src="https://embed.windy.com/embed2.html?lat=48.720&lon=26.895&zoom=8&level=surface&overlay=rain&menu=&message=true&marker=&calendar=12&pressure=&type=map&location=coordinates&detail=&detailLat=49.339&detailLon=26.895&metricWind=m%2Fs&metricTemp=%C2%B0C&radarRange=-1
-      #   aspect_ratio: 75%
-
-      - type: picture-elements
-        image: /local/vacuum_card.jpg
-        elements:
-        - type: icon
-          icon: mdi:bell-ring
-          tap_action: call-service
-          entity: vacuum.xiaomi_vacuum_cleaner
-          service: vacuum.locate
-          style:
-            top: 80%
-            left: 80%
-            "--paper-item-icon-color": rgb(115, 122, 130)
-    
-        - type: icon
-          tap_action: call-service
-          icon: mdi:home
-          entity: vacuum.xiaomi_vacuum_cleaner
-          service: vacuum.return_to_base
-          style:
-            top: 80%
-            left: 60%
-            "--paper-item-icon-color": rgb(115, 122, 130)
-    
-        - type: icon
-          icon: mdi:play-pause
-          tap_action: call-service
-          entity: vacuum.xiaomi_vacuum_cleaner
-          service: vacuum.start_pause
-          style:
-            top: 80%
-            left: 40%
-            "--paper-item-icon-color": rgb(115, 122, 130)
-    
-        - type: icon
-          icon: mdi:stop
-          tap_action: call-service
-          entity: vacuum.xiaomi_vacuum_cleaner
-          service: vacuum.stop
-          style:
-            top: 80%
-            left: 20%
-            "--paper-item-icon-color": rgb(115, 122, 130)
-    
-        - type: state-label
-          entity: sensor.vacuum_status
-          style:
-            top: 10%
-            left: 5%
-            color: rgb(255, 255, 255)
-            transform: translate(0%,-50%)
-            pointer-events: none
-            text-shadow: 1px 1px black
-            font-family: Trebuchet MS
-            font-size: 90%
-            font-weight: bold
-            border-left-style: solid
-            border-color: rgb(34, 154, 210)
-            background-color: rgb(54, 65, 78)
-            opacity: 0.8
-    
-        - type: state-label
-          entity: sensor.vacuum_battery
-          style:
-            top: 10%
-            right: 5%
-            color: rgb(255, 255, 255)
-            transform: translate(0%,-50%)
-            pointer-events: none
-            text-shadow: 1px 1px black
-            font-family: Trebuchet MS
-            font-size: 90%
-            font-weight: bold
-            border-right-style: solid
-            border-color: rgb(34, 154, 210)
-            background-color: rgb(54, 65, 78)
-            opacity: 0.8
-
-      - type: entities
-        title: Цветы
-        show_header_toggle: false
-        entities:
-          - sensor.flower_1_battery
-          - sensor.flower_1_conductivity
-          - sensor.flower_1_light_intensity
-          - sensor.flower_1_moisture
-          - sensor.flower_1_temperature
-
-      - type: picture-elements
-        image: /local/plants.jpg
-        elements:
-          - type: state-badge
-            entity: sensor.flower_1_moisture
-            style:
-              top: 27%
-              left: 10%
-              --ha-label-badge-font-size: 1em
-          - type: state-label
-            entity: sensor.flower_1_temperature
-            style:
-              top: 15%
-              left: 92%
-              --ha-label-badge-font-size: 1em
-
-      - type: map
-        aspect_ratio: 100%
-        entities:
-         - entity: device_tracker.iphone_
-         - entity: device_tracker.iphone_pavel
-         - zone.home
-
-
-
-
-  - icon: mdi:battery-charging
-    title: Уровень заряда
+    # - type: picture-elements
+    #   image: /local/vacuum_cleaner.png
+    #   elements:
+    #   - type: icon
+    #     icon: mdi:bell-ring
+    #     tap_action: call-service
+    #     entity: vacuum.xiaomi_vacuum_cleaner
+    #     service: vacuum.locate
+    #     style:
+    #       top: 80%
+    #       left: 80%
+    #       "--paper-item-icon-color": rgb(115, 122, 130)
+    #   - type: icon
+    #     tap_action: call-service
+    #     icon: mdi:home
+    #     entity: vacuum.xiaomi_vacuum_cleaner
+    #     service: vacuum.return_to_base
+    #     style:
+    #       top: 80%
+    #       left: 60%
+    #       "--paper-item-icon-color": rgb(115, 122, 130)
+    #   - type: icon
+    #     icon: mdi:play-pause
+    #     tap_action: call-service
+    #     entity: vacuum.xiaomi_vacuum_cleaner
+    #     service: vacuum.start_pause
+    #     style:
+    #       top: 80%
+    #       left: 40%
+    #       "--paper-item-icon-color": rgb(115, 122, 130)
+    #   - type: icon
+    #     icon: mdi:stop
+    #     tap_action: call-service
+    #     entity: vacuum.xiaomi_vacuum_cleaner
+    #     service: vacuum.stop
+    #     style:
+    #       top: 80%
+    #       left: 20%
+    #       "--paper-item-icon-color": rgb(115, 122, 130)
+    #   - type: state-label
+    #     entity: sensor.vacuum_status
+    #     style:
+    #       top: 10%
+    #       left: 5%
+    #       color: rgb(255, 255, 255)
+    #       transform: translate(0%,-50%)
+    #       pointer-events: none
+    #       text-shadow: 1px 1px black
+    #       font-family: Trebuchet MS
+    #       font-size: 90%
+    #       font-weight: bold
+    #       border-left-style: solid
+    #       border-color: rgb(34, 154, 210)
+    #       background-color: rgb(54, 65, 78)
+    #       opacity: 0.8
+    #   - type: state-label
+    #     entity: sensor.vacuum_battery
+    #     style:
+    #       top: 10%
+    #       right: 5%
+    #       color: rgb(255, 255, 255)
+    #       transform: translate(0%,-50%)
+    #       pointer-events: none
+    #       text-shadow: 1px 1px black
+    #       font-family: Trebuchet MS
+    #       font-size: 90%
+    #       font-weight: bold
+    #       border-right-style: solid
+    #       border-color: rgb(34, 154, 210)
+    #       background-color: rgb(54, 65, 78)
+    #       opacity: 0.8
+    # # - type: markdown  
+    #   title: Lovelace
+    #   content: >
+    #     Welcome to your **Awesome home**.
+#################  
+  - icon: mdi:information-outline
+    id: info
     background: radial-gradient(crimson, skyblue)
+    theme: dark-mode
     cards:
-       - type: entities
-         title: Садятся батарейки
-         show_header_toggle: false
-         entities:
-           - sensor.battery_status
-
-       - type: entities
-         title: Датчики xiaomi
-         show_header_toggle: false
-         entities:
-           - sensor.battery_door
-           - sensor.battery_water_1
-           - sensor.battery_water_2
-           - sensor.battery_cube
-           - sensor.battery_motion_1
-           - sensor.battery_motion_2
-           - sensor.battery_motion_3
-           - sensor.battery_switch_1
-           - sensor.battery_switch_2
-           - sensor.battery_switch_3
-           - sensor.battery_switch_4
-           - sensor.battery_wall_switch_1
-           - sensor.battery_wall_switch_2
-
-       - type: entities
-         title: Датчики xiaomi 2
-         show_header_toggle: false
-         entities:
-           - sensor.battery_iphone_1
-           - sensor.battery_iphone_2
-           - sensor.battery_temp_1
-           - sensor.battery_temp_2
-           - sensor.battery_temp_3
-           - sensor.battery_temp_4
-           - sensor.battery_temp_5
-           - sensor.battery_vacuum
-
+      - type: weather-forecast
+        entity: weather.dark_sky
+      - type: history-graph
+        title: Тиск
+        entities:
+          - entity: sensor.pressure_158d00024781ee
+            name: дитяча
+          - entity: sensor.pressure_158d00023cf7f5
+            name: кухня
+      - type: entities
+        entities:
+          - entity: device_tracker.iphone6
+            secondary_info: last-changed
+          - entity: device_tracker.nexus_6p_bt
+            secondary_info: last-changed
+#      - type: map
+#        aspect_ratio: 100%
+#        entities:
+#         - entity: device_tracker.iphone6
+#         - entity: device_tracker.iphone6_bt
+#         - entity: device_tracker.nexus_6p_bt 
+#         - zone.home
+#         - zone.ol4uk_work
+####################
   - icon: mdi:palette-swatch
     title: Сущности
     background: radial-gradient(crimson, skyblue)
     cards:
-    
       - type: entities
         title: Система
         entities:
           - sensor.ssl_cert_expiry
           - sensor.external_ip
           - sensor.ha_last_version
-
       - type: entities
         title: Все бинарные сенсоры
         entities:
-          - binary_sensor.cube_158d000101aaff
-          - binary_sensor.door_window_sensor_158d0001840154
-          - binary_sensor.motion_sensor_158d000113c470
-          - binary_sensor.motion_sensor_158d000158281b
-          - binary_sensor.motion_sensor_158d00015da341
-          - binary_sensor.switch_158d000113cc10
-          - binary_sensor.switch_158d0001560e5a
-          - binary_sensor.switch_158d000186eb37
-          - binary_sensor.switch_158d0001a6676b
-          - binary_sensor.wall_switch_158d00010b49bc
-          - binary_sensor.wall_switch_158d00010b5c7f
-          - binary_sensor.water_leak_sensor_158d0001d72deb
-          - binary_sensor.water_leak_sensor_158d0001d78dda
-
+          - binary_sensor.mosquitto
+          - binary_sensor.rosiks_heater
+          - binary_sensor.water_leak_sensor_158d00023a7ccf
       - type: entities
         title: Все трекеры
         entities:
-          - device_tracker.iphone_
-          - device_tracker.iphone_bt
-          - device_tracker.iphone_pavel
-          - device_tracker.iphone_pavel_bt
-
+          - device_tracker.iphone6
+          - device_tracker.iphone6_bt
+          - device_tracker.nexus_6p_bt
       - type: entities
-        title: Все вентиляторы
+        title: Климат
         entities:
-          - fan.xiaomi_miio_device
-
+          - climate.home_gas_heater
+          - climate.rosik_ceramik_heater
       - type: entities
         title: Все группы
         entities:
-          - group.ac
+          - group.climate_all
           - group.all_automations
           - group.all_devices
-          - group.all_fans
           - group.all_lights
-          - group.all_remotes
+          - group.all_scripts
           - group.all_switches
           - group.all_vacuum_cleaners
-          - group.app_trackers
-          - group.bt_trackers
-
+          - group.bedroom
+          - group.darksky
+          - group.migateway
+          - group.people
+          - group.pi
+          - group.rosik
+          - group.stats
+          - group.system
+          - group.water
       - type: entities
         title: Все логические переменные
         entities:
-          - input_boolean.disable_doorbell
-          - input_boolean.thermobool
-          - input_boolean.guest_mode
-          - input_boolean.vacation_mode
-          - input_number.sliderac
-          - input_boolean.turn_on_tv
-          - input_boolean.turn_on_tv_sound
-          - input_boolean.from_work_on_auto
-
+          - input_number.bedroomtimer
+          - input_number.house_temp
+          - input_number.rosikroomtimer
       - type: entities
         title: Весь свет
         entities:
-          - light.gateway_light_f0b429cc3ea7
-          - light.yeebedroom
-          - light.yeebigroom
-          - light.yeelight_ceiling_286c07b353f0
-          - light.yeelight_ceiling_34ce008c2692
-
+          - light.gateway_light_7c49eb1a6912
       - type: entities
-        title: Вся медиа
+        title: Скрипты 
         entities:
-          - media_player.apple_tv_2
-          - media_player.google_home
-
-      - type: entities
-        title: Все пульты
-        entities:
-          - remote.apple_tv_2
-          - remote.xiaomi_miio_192_168_1_57
-
+          - script.sleep_timer
       - type: entities
         title: Все сенсоры
         entities:
-          - sensor.gurskiyhomeassistant_last_build_state
-          - sensor.vacuum_cleaner_error_sensor
-          - sensor.vacuum_cleaner_status_sensor
-          - sensor.vacuum_cleaner_battery_level
-          - sensor.vacuum_cleaner_cleaned_area
-          - sensor.vacuum_cleaner_status
-          - sensor.vacuum_cleaner_cleaning_time
-          - sensor.vacuum_cleaner_main_brush_left
-          - sensor.vacuum_cleaner_side_brush_left
-          - sensor.vacuum_cleaner_filter_left
-          - sensor.pc_power
-          - sensor.pc_power_temperature
-          - sensor.air_purifier_temp
-          - sensor.air_purifier_humidity
-          - sensor.air_purifier_aqi
-          - sensor.humidity_158d000129ab32
-          - sensor.humidity_158d0001573ea5
-          - sensor.humidity_158d000159f070
-          - sensor.humidity_158d00015aea48
-          - sensor.humidity_158d00022cc1c4
-          - sensor.illumination_f0b429cc3ea7
-          - sensor.iphone__battery_level
-          - sensor.iphone__battery_state
-          - sensor.iphone_pavel_battery_level
-          - sensor.iphone_pavel_battery_state
-          - sensor.pressure_158d00022cc1c4
-          - sensor.temperature_158d000129ab32
-          - sensor.temperature_158d0001573ea5
-          - sensor.temperature_158d000159f070
-          - sensor.temperature_158d00015aea48
-          - sensor.temperature_158d00022cc1c4
-          - sensor.yr_symbol
-          - sensor.sunset_time
-          #- sensor.sun
-          - sensor.yweather_condition
-          - sensor.yweather_current
-          - sensor.yweather_humidity
-          - sensor.yweather_pressure
-          - sensor.yweather_temperature
-          - sensor.yweather_temperature_max
-          - sensor.yweather_temperature_min
-          - sensor.yweather_visibility
-          - sensor.yweather_wind_speed
-          - sensor.dark_sky_apparent_temperature
           - sensor.dark_sky_cloud_coverage
-          - sensor.dark_sky_daily_max_precip_intensity
-          - sensor.dark_sky_daily_summary
-          - sensor.dark_sky_daytime_high_apparent_temperature
-          - sensor.dark_sky_daytime_high_temperature
-          - sensor.dark_sky_dew_point
-          - sensor.dark_sky_hourly_summary
           - sensor.dark_sky_humidity
-          - sensor.dark_sky_icon
-          - sensor.dark_sky_minutely_summary
-          - sensor.dark_sky_nearest_storm_bearing
-          - sensor.dark_sky_nearest_storm_distance
-          - sensor.dark_sky_overnight_low_apparent_temperature
-          - sensor.dark_sky_overnight_low_temperature
-          - sensor.dark_sky_ozone
           - sensor.dark_sky_precip
           - sensor.dark_sky_precip_intensity
-          - sensor.dark_sky_precip_probability
           - sensor.dark_sky_pressure
           - sensor.dark_sky_summary
           - sensor.dark_sky_temperature
           - sensor.dark_sky_uv_index
-          - sensor.dark_sky_visibility
-          - sensor.dark_sky_wind_bearing
           - sensor.dark_sky_wind_speed
-
-      - type: entities
-        title: Rest
-        view: yes
-        show_header_toggle: false
-        entities:
-          - sensor.external_ip
-          - sensor.ha_last_version
-          - sensor.suburban_from_hovrino
-
+          - sensor.disk_free_
+          - sensor.heater_on
+          - sensor.humidity_158d00023cf7f5
+          - sensor.humidity_158d00024781ee
+          - sensor.illumination_7c49eb1a6912
+          - sensor.last_boot
+          - sensor.memory_free
+          - sensor.pi_cpu_temp
+          - sensor.pressure_158d00023cf7f5
+          - sensor.pressure_158d00024781ee
+          - sensor.processor_use
+          - sensor.ssl_cert_expiry
+          - sensor.temperature_158d00023cf7f5
+          - sensor.temperature_158d00024781ee
+          - sensor.time_online
+          - sensor.vacuum_battery
+          - sensor.vacuum_cleaner_battery_level
+          - sensor.vacuum_cleaner_cleaned_area
+          - sensor.vacuum_cleaner_cleaning_time
+          - sensor.vacuum_cleaner_error_sensor
+          - sensor.vacuum_cleaner_filter_left
+          - sensor.vacuum_cleaner_main_brush_left
+          - sensor.vacuum_cleaner_side_brush_left
+          - sensor.vacuum_cleaner_status
+          - sensor.vacuum_cleaner_status_sensor
+          - sensor.vacuum_status
+          - sensor.water_pump_on
+          - sun.sun
       - type: entities
         title: Пылесос
         entities:
@@ -475,446 +318,46 @@ views:
           - sensor.vacuum_cleaner_main_brush_left
           - sensor.vacuum_cleaner_side_brush_left
           - sensor.vacuum_cleaner_filter_left
-
       - type: entities
         title: Все переключатели
         entities:
-          - switch.original_xiaomi_mi_smart_wifi_socket
-          - switch.wall_switch_158d00014ddc4f
-          - switch.wall_switch_left_158d00012bad35
-          - switch.wall_switch_right_158d00012bad35
-
+          - switch.gas_boiler
+          - switch.heater1
+          - switch.sonoff
+          - switch.waterpump
       - type: entities
         title: Все пылесосы
         entities:
           - vacuum.xiaomi_vacuum_cleaner
-
       - type: entities
-        title: Сигнализация
-        show_header_toggle: false
+        title: Все зоны
         entities:
-          - input_select.alarm_status
-          - automation.arm_alarm_when_nobody_home
-          - automation.disarm_alarm_when_someone_comes_home
-          - automation.notify_alarm_triggered
-          - automation.set_alarm_status_drop_down
-          - automation.front_door_alarm
-          - input_boolean.guest_mode
-          - input_boolean.vacation_mode
-
-  - icon: mdi:flash-auto
-    title: Автоматизации
-    background: radial-gradient(crimson, skyblue)
-    cards:
+          - zone.home
+          - zone.ol4uk_work
       - type: entities
-        title: Кондиционер
+        title: Все автоматизации
         view: yes
         show_header_toggle: true
         entities:
-          - automation.cooloff
-          - automation.coolon
-          - automation.theroff
-          - automation.theron
-          - automation.cond_18
-          - automation.cond_19
-          - automation.cond_20
-          - automation.cond_21
-          - automation.cond_22
-          - automation.cond_23
-          - automation.cond_24
-          - automation.cond_25
-
-      - type: entities
-        title: Пылесос
-        view: yes
-        show_header_toggle: true
-        entities:
-          - automation.exit_button_vacuum_on_childsleep_off
-          - automation.exit_button_vacuum_on_childsleep_on
-          - automation.vacuum_off
-          - automation.vacuum_on
-          - automation.vacuum_cleaner_error
-          - automation.vacuum_cleaner_error_solved
-
-      - type: entities
-        title: Сигнализация
-        view: yes
-        show_header_toggle: true
-        entities:
-          - automation.arm_alarm_when_nobody_home
-          - automation.disarm_alarm_when_someone_comes_home
-          - automation.notify_alarm_triggered
-          - automation.set_alarm_status_drop_down
-          - automation.front_door_alarm
-
-      - type: entities
-        title: Климат
-        view: yes
-        show_header_toggle: true
-        entities:
-          - automation.temp_alert_1
-          - automation.temp_alert_2
-          - automation.hum_alert_1
-          - automation.hum_alert_2
-          - automation.air_aqi_to_high
-
-
-      - type: entities
-        title: Ir управление
-        view: yes
-        show_header_toggle: true
-        entities:
-          - automation.turn_on_tv
-          - automation.turn_on_tv_sound
-
-      - type: entities
-        title: Xiaomi switches
-        view: yes
-        show_header_toggle: true
-        entities:
-          - automation.xswitch_computer_click
-          - automation.xswitch_computer_double_click
-          - automation.xswitch_computer_long_press
-
-      - type: entities
-        title: Без категории
-        view: yes
-        show_header_toggle: true
-        entities:
-          #- automation.rainy_day
-          - automation.morning_rule
-          - automation.acslid
-          - automation.front_door 
-          - automation.water_leak_kitchen
-          - automation.water_leak_bathroom
-
-
-      - type: entities
-        title: Режимы
-        view: yes
-        show_header_toggle: true
-        entities:
-          - automation.disable_guestmode_autoon
-          - automation.disable_guestmode
-          - automation.doorbell_off
-          - automation.doorbell_on
-          - automation.disable_doorbell_432432
-          - automation.disable_doorbell_autoon
-          - automation.set_ga_volume_to_low_at_night
-          - automation.set_ga_volume_to_high_daytime
-
-    
-      - type: entities
-        title: Геопозиция
-        view: yes
-        show_header_toggle: true
-        entities:
-          - automation.pavel_at_railway_station
-          - automation.pavel_leave_work
-          - automation.all_arrive_in_sosnovka
-          - automation.all_leave_home
-
-      - type: entities
-        title: Система
-        view: yes
-        show_header_toggle: true
-        entities:
-          - automation.startup_notification
-          - automation.update_config_if_travis_build_is_successfull
-          - automation.system_new_device_connected
-          - automation.telegram_test_at_1000
-          - automation.testtts
-          - automation.update_notification
-          - automation.login_failure
-          - automation.ha_error_notify
-          - automation.ssl_expiry_notification
-          - automation.auto_renew_ssl_cert
-
-
-
-
-   
-  - icon: mdi:test-tube
-    title: Тест
-    background: radial-gradient(crimson, skyblue)
-    cards:
-
-      - type: picture-elements
-        image: /local/Floorplan2.png
-        elements:
-
-        - type: state-icon
-          entity: sensor.dark_sky_apparent_temperature
-          style:
-            top: 97.5%
-            left: 2%
-            pointer-events: none
-            max-width: 24px
-            max-height: 24px
-            color: rgb(249, 251, 255)
-        - type: state-label
-          entity: sensor.dark_sky_apparent_temperature
-          style:
-            top: 96.2%
-            left: 3.9%
-            font-weight: bold
-            color: rgb(249, 251, 255)
-            font-family: Trebuchet MS
-            text-shadow: 2px 2px DarkSlateGrey
-            font-size: 70%
-            text-rendering: optimizeLegibility
-            -moz-osx-font-smoothing: grayscale
-            font-smoothing: antialiased
-            -webkit-font-smoothing: antialiased
-
-        - type: image
-          tap_action: toggle
-          entity: switch.wall_switch_left_158d00012bad35
-          image: /local/Floorplan2/kitchen.png
-          state_filter:
-            "off": opacity(50%) 
-            "on": opacity(1%)
-          style:
-            top: 85%
-            left: 78.25%
-            width: 34.3%
-         # - sensor.temperature_158d00022cc1c4
-         # - sensor.humidity_158d00022cc1c4
-
-
-
-        - type: icon
-          icon: mdi:temperature-celsius
-          entity: sensor.temperature_158d00022cc1c4
-          tap_action: more-info
-          style:
-            right: 24%
-            top: 93.5%      
-            opacity: 0.5
-            #color: white
-           # "--paper-item-icon-color": rgb(115, 122, 130)
-#            text-shadow: 1px 1px black
-        - type: state-label
-          entity: sensor.temperature_158d00022cc1c4
-          style:
-            right: 16%
-            top: 96%
-            opacity: 0.5
-           # color: rgb(244, 131, 66)
-#            text-shadow: 1px 1px black
-
-        - type: icon
-          icon: mdi:water
-          entity: sensor.humidity_158d00022cc1c4
-          tap_action: more-info
-          style:
-            right: 12%
-            top: 93.5%     
-            opacity: 0.5
-          #  color: white
-        - type: state-label
-          entity: sensor.humidity_158d00022cc1c4
-          style:
-            right: 5%
-            top: 96%
-            opacity: 0.5
-          #  color: white
-
-      
-        - type: image
-          tap_action: toggle
-          entity: switch.wall_switch_158d00014ddc4f
-          image: /local/Floorplan2/hallway.png
-          state_filter:
-            "off": opacity(50%)
-            "on": opacity(1%)
-          style:
-            top: 70.5%
-            left: 32.5%
-            width: 56%
-      
-        - type: image
-          tap_action: toggle
-          entity: light.yeebigroom
-          image: /local/Floorplan2/living_room.png
-          state_filter:
-            "off": opacity(50%)
-            "on": opacity(1%)
-          style:
-            top: 53.25%
-            left: 61%
-            width: 68%
-
-        - type: icon
-          icon: mdi:temperature-celsius
-          entity: sensor.temperature_158d000129ab32
-          tap_action: more-info
-          style:
-            left: 54%
-            top: 66.5%    
-            opacity: 0.5  
-            color: white
-
-        - type: state-label
-          entity: sensor.temperature_158d000129ab32
-          style:
-            left: 54%
-            top: 69.5%
-            opacity: 0.5
-            color: white
-
-
-        - type: icon
-          icon: mdi:water
-          entity: sensor.humidity_158d000129ab32
-          tap_action: more-info
-          style:
-            left: 68%
-            top: 66.5%     
-            opacity: 0.5   
-            color: white
-        - type: state-label
-          entity: sensor.humidity_158d000129ab32
-          style:
-            left: 68%
-            top: 69.5%
-            opacity: 0.5
-            color: white
-
-        - type: image
-          tap_action: toggle
-          entity: light.yeebedroom
-          image: /local/Floorplan2/bedroom.png
-          state_filter:
-            "off": opacity(50%)
-            "on": opacity(1%)
-          style:
-            top: 22.85%
-            left: 29%
-            width: 50%
-
-        - type: icon
-          icon: mdi:temperature-celsius
-          entity: sensor.temperature_158d0001573ea5
-          tap_action: more-info
-          style:
-            left: 22%
-            top: 4%    
-            opacity: 0.5  
-            color: white
-
-        - type: state-label
-          entity: sensor.temperature_158d0001573ea5
-          style:
-            left: 22%
-            top: 7%
-            opacity: 0.5
-            color: white
-
-        - type: icon
-          icon: mdi:water
-          entity: sensor.humidity_158d0001573ea5
-          tap_action: more-info
-          style:
-            left: 36%
-            top: 4%    
-            opacity: 0.5   
-            color: white
-        - type: state-label
-          entity: sensor.humidity_158d0001573ea5
-          style:
-            left: 36%
-            top: 7%
-            opacity: 0.5
-            color: white
-
-        - type: image
-          tap_action: toggle
-          entity: switch.wall_switch_right_158d00012bad35
-          image: /local/Floorplan2/bathroom.png
-          state_filter:
-            "off": opacity(60%)
-            "on": opacity(1%)
-          style:
-            top: 89.5%
-            left: 44%
-            width: 34.5%
-
-        - type: icon
-          icon: mdi:temperature-celsius
-          entity: sensor.temperature_158d000159f070
-          tap_action: more-info
-          style:
-            right: 58%
-            top: 93.5%    
-            opacity: 0.5  
-
-        - type: state-label
-          entity: sensor.temperature_158d000159f070
-          style:
-            right: 50%
-            top: 96%
-            opacity: 0.5
-
-        - type: icon
-          icon: mdi:water
-          entity: sensor.humidity_158d000159f070
-          tap_action: more-info
-          style:
-            right: 47%
-            top: 93.5%   
-            opacity: 0.5   
-
-        - type: state-label
-          entity: sensor.humidity_158d000159f070
-          style:
-            right: 39%
-            top: 96%
-            opacity: 0.5
-
-        - type: image
-          tap_action: toggle
-          entity: automation.dummy
-          image: /local/Floorplan2/child.png
-          state_filter:
-            "off": opacity(60%)
-            "on": opacity(1%)
-          style:
-            top: 18.5%
-            left: 74.5%
-            width: 40.9%
-
-        - type: icon
-          icon: mdi:temperature-celsius
-          entity: sensor.temperature_158d00015aea48
-          tap_action: more-info
-          style:
-            left: 67%
-            top: 4%    
-            opacity: 0.5  
-            color: white
-
-        - type: state-label
-          entity: sensor.temperature_158d00015aea48
-          style:
-            left: 67%
-            top: 7%
-            opacity: 0.5
-            color: white
-
-        - type: icon
-          icon: mdi:water
-          entity: sensor.humidity_158d00015aea48
-          tap_action: more-info
-          style:
-            left: 81%
-            top: 4%    
-            opacity: 0.5   
-            color: white
-        - type: state-label
-          entity: sensor.humidity_158d00015aea48
-          style:
-            left: 81%
-            top: 7%
-            opacity: 0.5
-            color: white
+          - automation.morning_off
+          - automation.morning_on
+          - automation.water_at_home
+          - automation.water_leave_home
+          - automation.climate_at_home 
+          - automation.climate_leave_home
+#################     
+  # - icon: mdi:flash-auto
+  #   title: Автоматизации
+  #   background: radial-gradient(crimson, skyblue)
+  #   cards:
+      # - type: entities
+      #   title: Пылесос
+      #   view: yes
+      #   show_header_toggle: true
+      #   entities:
+      #     - automation.exit_button_vacuum_on_childsleep_off
+      #     - automation.exit_button_vacuum_on_childsleep_on
+      #     - automation.vacuum_off
+      #     - automation.vacuum_on
+      #     - automation.vacuum_cleaner_error
+      #     - automation.vacuum_cleaner_error_solved

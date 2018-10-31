@@ -19,7 +19,13 @@ zone:
     longitude: !secret longitude
     radius: 75
     icon: mdi:home-automation
-    
+
+  - name: Ol4uk Work    
+    latitude: !secret wolatitude
+    longitude: !secret wolongitude
+    radius: 150
+    icon: mdi:office-building
+
 # Show links to resources in log and frontend
 #introduction:
 
@@ -100,9 +106,35 @@ vacuum:
     token: !secret xiaomi_vacuum_token
 
 xiaomi_aqara:
+  discovery_retry: 5
   gateways:
     - mac: !secret mi_gateway_mac
       key: !secret mi_gateway_key
+
+######################
+# Climate - central heater
+######################
+climate:
+  - platform: generic_thermostat
+    name: Home gas Heater
+    heater: switch.gas_boiler
+    target_sensor: sensor.temperature_158d00023cf7f5
+    min_temp: 14
+    max_temp: 24
+    target_temp: 18
+    tolerance: 0.3
+    away_temp: 16
+
+
+  - platform: generic_thermostat
+    name: Rosik ceramik Heater
+    heater: switch.heater1
+    target_sensor: sensor.temperature_158d00024781ee
+    min_temp: 14
+    max_temp: 24
+    target_temp: 18
+    tolerance: 0.3
+    away_temp: 16
 
 device_tracker:
   # - platform: google_maps
@@ -147,7 +179,7 @@ input_number:
      initial: 18
      min: 14
      max: 24
-     step: 1
+     step: 0.5
     
     rosikroomtimer:
      name: Таймер опалення
@@ -157,6 +189,11 @@ input_number:
      min: 10
      max: 60
      step: 10
+
+weather:
+  - platform: darksky
+    api_key: !secret darkskyapi
+    mode: daily
 
 binary_sensor: 
   - platform: mqtt
