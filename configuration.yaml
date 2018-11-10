@@ -60,7 +60,7 @@ updater:
   # include_used_components: true
 
 # Discover some devices automatically
-discovery:
+#discovery:
 
 # Allows you to issue voice commands from the frontend in enabled browsers
 conversation:
@@ -102,6 +102,7 @@ switch: !include_dir_merge_list switches/
 
 vacuum:
   - platform: xiaomi_miio
+    discovery_retry: 5
     host: 192.168.1.35
     token: !secret xiaomi_vacuum_token
 
@@ -210,11 +211,18 @@ binary_sensor:
     payload_on: "(running)"
     payload_off: "(dead)"
 
+telegram_bot:
+  - platform: polling
+    api_key: !secret tg_api_key
+    allowed_chat_ids:
+      - !secret tg_chat_id
+ 
+notify:
+  - name: NOTIFIER_NAME
+    platform: telegram
+    chat_id: !secret tg_chat_id
 
 # logger:
-#   default: critical
-#   logs:
-#     homeassistant.components.xiaomi_miio: critical
 
 group: !include groups.yaml
 automation: !include_dir_merge_list automation/

@@ -1,8 +1,13 @@
+resources:
+  - url: /local/monster-card.js?v=1
+    type: js
+    # https://github.com/ciotlosm/custom-lovelace/tree/master/monster-card
+
 title: My Awesome Home
 background: center / cover no-repeat url("/background.png") fixed
 views:
 ######################  
-  - title: Home
+  - icon: mdi:home-assistant
     id: home
     background: radial-gradient(crimson, skyblue)
     theme: dark-mode
@@ -58,22 +63,7 @@ views:
           name: керамічна панель
         - entity: sensor.heater_on
           name: годин роботи обігрівача
-    - type: history-graph
-      title: Температура та Вологість
-      entities:
-        - entity: sensor.temperature_158d00023cf7f5
-          name: кухня
-        - entity: sensor.temperature_158d00024781ee
-          name: дитяча
-        - entity: sensor.dark_sky_temperature 
-          name: за бортом
-    # - type: history-graph
-    #   title: Вологість
-    #   entities:
-        - entity: sensor.humidity_158d00024781ee
-          name: дитяча
-        - entity: sensor.humidity_158d00023cf7f5
-          name: кухня
+
     - type: entities
       title: Вода
       show_header_toggle: false
@@ -83,13 +73,16 @@ views:
           secondary_info: last-changed
         - entity: sensor.water_pump_on
           name: годин активності
-        - entity: binary_sensor.water_leak_sensor_158d00023a7ccf
-          name: датчик протікання
-          secondary_info: last-changed
         - entity: automation.water_at_home
           name: Вкл воду коли ми вдома
         - entity: automation.water_leave_home
           name: Викл воду коли нікого вдома
+        - entity: binary_sensor.water_leak_sensor_158d00023a7ccf
+          name: датчик протікання
+          secondary_info: last-changed
+        - entity: automation.water_leak
+          name: Викл воду коли протікання 
+
     - type: entities
       title: Спальня
       show_header_toggle: false
@@ -100,90 +93,113 @@ views:
           name: освітленність
         - entity: switch.sonoff
           name: лампа
+        - entity: input_number.bedroomtimer
+          name: таймер сну
+        - entity: script.sleep_timer
+          name: таймер сну
 
-    # - type: picture-elements
-    #   image: /local/vacuum_cleaner.png
-    #   elements:
-    #   - type: icon
-    #     icon: mdi:bell-ring
-    #     tap_action: call-service
-    #     entity: vacuum.xiaomi_vacuum_cleaner
-    #     service: vacuum.locate
-    #     style:
-    #       top: 80%
-    #       left: 80%
-    #       "--paper-item-icon-color": rgb(115, 122, 130)
-    #   - type: icon
-    #     tap_action: call-service
-    #     icon: mdi:home
-    #     entity: vacuum.xiaomi_vacuum_cleaner
-    #     service: vacuum.return_to_base
-    #     style:
-    #       top: 80%
-    #       left: 60%
-    #       "--paper-item-icon-color": rgb(115, 122, 130)
-    #   - type: icon
-    #     icon: mdi:play-pause
-    #     tap_action: call-service
-    #     entity: vacuum.xiaomi_vacuum_cleaner
-    #     service: vacuum.start_pause
-    #     style:
-    #       top: 80%
-    #       left: 40%
-    #       "--paper-item-icon-color": rgb(115, 122, 130)
-    #   - type: icon
-    #     icon: mdi:stop
-    #     tap_action: call-service
-    #     entity: vacuum.xiaomi_vacuum_cleaner
-    #     service: vacuum.stop
-    #     style:
-    #       top: 80%
-    #       left: 20%
-    #       "--paper-item-icon-color": rgb(115, 122, 130)
-    #   - type: state-label
-    #     entity: sensor.vacuum_status
-    #     style:
-    #       top: 10%
-    #       left: 5%
-    #       color: rgb(255, 255, 255)
-    #       transform: translate(0%,-50%)
-    #       pointer-events: none
-    #       text-shadow: 1px 1px black
-    #       font-family: Trebuchet MS
-    #       font-size: 90%
-    #       font-weight: bold
-    #       border-left-style: solid
-    #       border-color: rgb(34, 154, 210)
-    #       background-color: rgb(54, 65, 78)
-    #       opacity: 0.8
-    #   - type: state-label
-    #     entity: sensor.vacuum_battery
-    #     style:
-    #       top: 10%
-    #       right: 5%
-    #       color: rgb(255, 255, 255)
-    #       transform: translate(0%,-50%)
-    #       pointer-events: none
-    #       text-shadow: 1px 1px black
-    #       font-family: Trebuchet MS
-    #       font-size: 90%
-    #       font-weight: bold
-    #       border-right-style: solid
-    #       border-color: rgb(34, 154, 210)
-    #       background-color: rgb(54, 65, 78)
-    #       opacity: 0.8
-    # # - type: markdown  
-    #   title: Lovelace
-    #   content: >
-    #     Welcome to your **Awesome home**.
+    - type: picture-elements
+      image: /local/vacuum_cleaner.png
+      elements:
+      - type: icon
+        icon: mdi:bell-ring
+        tap_action: call-service
+        entity: vacuum.xiaomi_vacuum_cleaner
+        service: vacuum.locate
+        style:
+          top: 80%
+          left: 80%
+          "--paper-item-icon-color": rgb(115, 122, 130)
+      - type: icon
+        tap_action: call-service
+        icon: mdi:home
+        entity: vacuum.xiaomi_vacuum_cleaner
+        service: vacuum.return_to_base
+        style:
+          top: 80%
+          left: 60%
+          "--paper-item-icon-color": rgb(115, 122, 130)
+      - type: icon
+        icon: mdi:play
+        tap_action: call-service
+        entity: vacuum.xiaomi_vacuum_cleaner
+        service: vacuum.start
+        style:
+          top: 80%
+          left: 40%
+          "--paper-item-icon-color": rgb(115, 122, 130)
+      - type: icon
+        icon: mdi:stop
+        tap_action: call-service
+        entity: vacuum.xiaomi_vacuum_cleaner
+        service: vacuum.stop
+        style:
+          top: 80%
+          left: 20%
+          "--paper-item-icon-color": rgb(115, 122, 130)
+      - type: state-label
+        entity: sensor.vacuum_status
+        style:
+          top: 10%
+          left: 5%
+          color: rgb(255, 255, 255)
+          transform: translate(0%,-50%)
+          pointer-events: none
+          text-shadow: 1px 1px black
+          font-family: Trebuchet MS
+          font-size: 90%
+          font-weight: bold
+          border-left-style: solid
+          border-color: rgb(34, 154, 210)
+          background-color: rgb(54, 65, 78)
+          opacity: 0.8
+      - type: state-label
+        entity: sensor.vacuum_battery
+        style:
+          top: 10%
+          right: 5%
+          color: rgb(255, 255, 255)
+          transform: translate(0%,-50%)
+          pointer-events: none
+          text-shadow: 1px 1px black
+          font-family: Trebuchet MS
+          font-size: 90%
+          font-weight: bold
+          border-right-style: solid
+          border-color: rgb(34, 154, 210)
+          background-color: rgb(54, 65, 78)
+          opacity: 0.8
+    # - type: markdown  
+      # title: Lovelace
+      # content: >
+      #   Welcome to your **Awesome home**.
 #################  
-  - icon: mdi:information-outline
+  - icon: mdi:weather-cloudy
     id: info
     background: radial-gradient(crimson, skyblue)
     theme: dark-mode
     cards:
-      - type: weather-forecast
-        entity: weather.dark_sky
+      - type: history-graph
+        title: Температура
+        entities:
+          - entity: sensor.temperature_158d00023cf7f5
+            name: кухня
+          - entity: sensor.temperature_158d00024781ee
+            name: дитяча
+          - entity: sensor.dark_sky_temperature 
+            name: за бортом
+      # - type: history-graph
+      #   title: Вологість
+      #   entities:
+
+      - type: history-graph
+        title: Вологість
+        entities:
+          - entity: sensor.humidity_158d00024781ee
+            name: дитяча
+          - entity: sensor.humidity_158d00023cf7f5
+            name: кухня
+
       - type: history-graph
         title: Тиск
         entities:
@@ -191,21 +207,61 @@ views:
             name: дитяча
           - entity: sensor.pressure_158d00023cf7f5
             name: кухня
+
       - type: entities
+        title: Сирість 
+        show_header_toggle: false
         entities:
-          - entity: device_tracker.iphone6
-            secondary_info: last-changed
-          - entity: device_tracker.nexus_6p_bt
-            secondary_info: last-changed
-#      - type: map
-#        aspect_ratio: 100%
-#        entities:
-#         - entity: device_tracker.iphone6
-#         - entity: device_tracker.iphone6_bt
-#         - entity: device_tracker.nexus_6p_bt 
-#         - zone.home
-#         - zone.ol4uk_work
+          - entity: sensor.mold_1st_floor
+            name: 1 поверх
+          - entity: sensor.mold_2nd_floor
+            name: 2 поверх
+
+      - type: weather-forecast
+        entity: weather.dark_sky
+
+      - type: iframe 
+        url: https://embed.windy.com/embed2.html?lat=49.810&lon=26.741&zoom=6&level=surface&overlay=rain&menu=&message=true&marker=&calendar=12&pressure=&type=map&location=coordinates&detail=&detailLat=50.064&detailLon=26.301&metricWind=m%2Fs&metricTemp=%C2%B0C&radarRange=-1
+        aspect_ratio: 75%
+
 ####################
+  - icon: mdi:information-outline
+    title: Info 
+    background: radial-gradient(crimson, skyblue)
+    cards:
+    - type: entities
+      title: Raspberry Pi
+      entities:
+        - entity: sensor.processor_use
+        - entity: sensor.memory_free
+        - entity: sensor.pi_cpu_temp
+        - entity: sensor.disk_free_
+        - entity: sensor.last_boot
+        - entity: sensor.time_online
+        - entity: sensor.external_ip
+        - entity: sensor.ssl_cert_expiry
+
+    - type: entities
+      entities:
+        - entity: device_tracker.iphone6
+          secondary_info: last-changed
+        - entity: device_tracker.nexus_6p_bt
+          secondary_info: last-changed
+
+    - type: custom:monster-card
+      show_empty: false
+      card:
+        type: glance
+        title: Low Battery Devices
+      filter:
+        include:
+          - entity_id: "*battery_level*"
+            state: '< 25'
+          - attributes:
+              battery: '< 25'
+          - attributes:
+              battery_level: '< 25'
+
   - icon: mdi:palette-swatch
     title: Сущности
     background: radial-gradient(crimson, skyblue)
@@ -236,7 +292,7 @@ views:
       - type: entities
         title: Все группы
         entities:
-          - group.climate_all
+          # - group.climate_all
           - group.all_automations
           - group.all_devices
           - group.all_lights
@@ -252,6 +308,7 @@ views:
           - group.stats
           - group.system
           - group.water
+          - group.mold
       - type: entities
         title: Все логические переменные
         entities:
@@ -345,6 +402,26 @@ views:
           - automation.water_leave_home
           - automation.climate_at_home 
           - automation.climate_leave_home
+
+  - icon: mdi:test-tube          
+    background: radial-gradient(crimson, skyblue)
+    cards:
+    
+    - type: custom:monster-card
+      show_empty: false
+      card:
+        type: glance
+        title: Low Battery Devices
+      filter:
+        include:
+          - entity_id: "*battery_level*"
+            state: '< 25'
+          - attributes:
+              battery: '< 25'
+          - attributes:
+              battery_level: '< 25'
+
+
 #################     
   # - icon: mdi:flash-auto
   #   title: Автоматизации

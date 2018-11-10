@@ -6,13 +6,13 @@
   action:
   - service: climate.set_away_mode
     data_template: 
-      entity_id: group.climate_all
+      entity_id: climate.home_gas_heater
       away_mode: true
-      # entity_id: climate.home_gas_heater
-      # away_mode: true
-      # entity_id: climate.rosik_ceramik_heater
-      # away_mode: true
-
+  - service: climate.set_away_mode
+    data_template: 
+      entity_id: climate.rosik_ceramik_heater
+      away_mode: true
+      
 - alias: climate at home
   trigger:
     platform: state
@@ -21,9 +21,9 @@
   action:
   - service: climate.set_away_mode
     data_template: 
-      entity_id: group.climate_all
+      entity_id: climate.home_gas_heater
       away_mode: false
-      # entity_id: climate.home_gas_heater
-      # away_mode: false
-      # entity_id: climate.rosik_ceramik_heater
-      # away_mode: false
+  - service: climate.set_away_mode
+    data_template: 
+      entity_id: climate.rosik_ceramik_heater
+      away_mode: false

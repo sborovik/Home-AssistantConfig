@@ -7,6 +7,10 @@
   action:
   - service: switch.turn_off
     entity_id: switch.waterpump
+  - service: telegram_bot.send_message
+    data:
+      title: 'water pump'
+      message: 'is off'
 
 - alias: water at home
   trigger:
@@ -17,3 +21,20 @@
   action:
   - service: switch.turn_on
     entity_id: switch.waterpump
+  - service: telegram_bot.send_message
+    data:
+      title: 'water pump'
+      message: 'is on' 
+
+- alias: water leak
+  trigger:
+    platform: state
+    entity_id: binary_sensor.water_leak_sensor_158d00023a7ccf 
+    to: 'on'
+  action:
+  - service: switch.turn_off
+    entity_id: switch.waterpump
+  - service: telegram_bot.send_message
+    data:
+      title: 'Alarm!'
+      message: 'Water leak detected! water pump is off' 

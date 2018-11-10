@@ -9,13 +9,13 @@ bedroom:
  - input_number.bedroomtimer
  - script.sleep_timer
 
-climate_all: 
-  name: Клімат
-  icon: mdi:thermometer
+mold: 
+  name: Сирість
+  icon: mdi:water-percent
   view: yes
   entities: 
-  - climate.home_gas_heater 
-  - climate.rosik_ceramik_heater 
+  - sensor.mold_1st_floor
+  - sensor.mold_2nd_floor
 
 rosik: 
   name: кімната Ярослава
