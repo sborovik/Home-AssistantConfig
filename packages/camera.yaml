@@ -1,0 +1,68 @@
+camera:
+  - platform: generic
+    name: DaFang
+    username: !secret dafcamlogin  
+    password: !secret dafcampass
+    authentication: basic
+    still_image_url: https://192.168.1.18/cgi-bin/currentpic.cgi
+    verify_ssl: false
+    scan_interval: 5
+
+automation:
+  - alias: Start motion detection when not at home 
+    trigger:
+        platform: state
+        entity_id: group.all_devices
+        to: not_home
+    action:
+      - service: switch.turn_on 
+        entity_id: switch.dafang_motion_detection
+      - service: telegram_bot.send_message
+        data:
+          title: 'camera motion detection'
+          message: 'is on' 
+
+
+  - alias: Stop motion detection when at home
+    trigger:
+        platform: state
+        entity_id: group.all_devices
+        to: home
+    action:
+      - service: switch.turn_off
+        entity_id: switch.dafang_motion_detection
+      - service: telegram_bot.send_message
+        data:
+          title: 'camera motion detection'
+          message: 'is off' 
+# script: 
+#   - alias: snapshot 
+#     sequence: 
+#     - service: camera.snapshot 
+#       data:
+#         entity_id: camera.dafang 
+#         filename: '/home/homeassistant/.homeassistant/pic/snapshot_{{ now().strftime("%Y%m%d-%H%M%S") }}.jpg' 
+
+#- id: '13370'
+#  alias: 'Motion detected'
+#  trigger:
+#    payload: 'ON'
+#    platform: mqtt
+#    topic: myhome/mycamera/motion
+ # action:
+#    service: notify.me
+#    data:
+#      title: "Motion"
+#      message: "detected."
+
+# put snapshot automation here 
+
+# script:
+#   # snapshot:
+#   alias: snapshot
+#   sequence: 
+#   - data: {}
+#     entity_id: 
+#     - camera.dafang
+#     service: camera.snapshot
+#     filename: '/home/homeassistant/.homeassistant/pic/pic_{{ now ().year }}_{{ now ().month }}_{{ now ().day }}_{{ now ().hour }}_{{ now ().minute }}.jpg'

@@ -1,0 +1,31 @@
+input_number:
+  bedroomtimer:
+    name: Таймер сну
+    icon: mdi:timer
+    initial: 20
+    min: 5
+    max: 50
+    step: 5
+
+switch:
+  - platform: mqtt
+    name: sonoff
+    icon: mdi:lamp
+    # state_topic: "/sonoff/relay/state"
+    state_topic: "/sonoff/gpio/12"
+    command_topic: "/sonoff/gpio/12"
+    payload_on: "1"
+    payload_off: "0"
+    retain: true
+
+# automation: 
+  # - alias: morning run
+  #   initial_state: 'off'
+  #   trigger:
+  #   - at: '05:20:00'
+  #     platform: time
+  #   condition: []
+  #   action:
+  #   - data:
+  #       entity_id: switch.sonoff
+  #     service: switch.turn_on

@@ -1,0 +1,55 @@
+switch: 
+  - platform: mqtt
+    name: waterpump
+    icon: mdi:water-pump
+    # state_topic: "/waterpump/relay/state"
+    state_topic: "/waterpump/gpio/12"
+    command_topic: "/waterpump/gpio/12"
+    payload_on: "1"
+    payload_off: "0"
+    retain: true
+
+automation: 
+  - alias: water leave home
+    trigger:
+      platform: state
+      # entity_id: device_tracker.iphone6
+      entity_id: group.all_devices
+      to: not_home
+    action:
+    - service: switch.turn_off
+      entity_id: switch.waterpump
+    - service: telegram_bot.send_message
+      data:
+        title: 'water pump'
+        message: 'is off'
+
+  - alias: water at home
+    trigger:
+      platform: state
+      entity_id: group.all_devices
+      to: home
+    action:
+    - service: switch.turn_on
+      entity_id: switch.waterpump
+    - service: telegram_bot.send_message
+      data:
+        title: 'water pump'
+        message: 'is on' 
+
+  - alias: water leak
+    trigger:
+      platform: state
+      entity_id: binary_sensor.water_leak_sensor_158d00023a7ccf 
+      to: 'on'
+    action:
+    - service: switch.turn_off
+      entity_id: switch.waterpump
+    - service: telegram_bot.send_message
+      data:
+        title: 'Alarm!'
+        message: 'Water leak detected! water pump is off' 
+    - service: persistent_notification.create
+      data:
+        title: 'Alarm!'
+        message: 'Water leak detected! water pump is off' 

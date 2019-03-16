@@ -1,9 +1,0 @@
-- platform: mqtt
-  name: sonoff
-  icon: mdi:lamp
-  # state_topic: "/sonoff/relay/state"
-  state_topic: "/sonoff/gpio/12"
-  command_topic: "/sonoff/gpio/12"
-  payload_on: "1"
-  payload_off: "0"
-  retain: true

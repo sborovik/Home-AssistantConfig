@@ -8,6 +8,11 @@
 !sensors/
 !shell/
 !switches/
+!packages/
 icloud/*
 secrets.yaml
+_inbox.txt
 known_devices.yaml
+.shopping_list.json
+.google_maps_location_sharing.cookies
+shell_commands.yaml

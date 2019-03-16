@@ -1,0 +1,188 @@
+input_number:
+    alarm_1_hour:
+        name: Hours
+        icon: mdi:timer
+        initial: 7
+        min: 0
+        max: 23
+        step: 1
+    alarm_1_minutes:
+        name: Minutes
+        icon: mdi:timer 
+        initial: 0
+        min: 0
+        max: 59
+        step: 1
+    alarm_1_offset:
+        name: Transition
+        icon: mdi:blur-linear
+        initial: 7
+        min: 0
+        max: 20
+        step: 1
+
+input_boolean:
+    alarm_1_weekday:
+        name: Weekdays
+        initial: on
+        icon: mdi:calendar
+    alarm_1_weekend:
+        name: Weekends
+        initial: off
+        icon: mdi:calendar
+
+sensor:
+    - platform: template
+#      friendly_name: sensor.alarm_1_time
+      sensors:
+         alarm_1_time:
+              friendly_name: 'Alarm Time'
+              value_template: >-
+                  {{ "%0.02d:%0.02d" | format(states("input_number.alarm_1_hour") | int, states("input_number.alarm_1_minutes") | int) }}
+    - platform: template
+#      entity_id: sensor.alarm_1_time_minus_offset
+      sensors:
+         alarm_1_time_minus_offset:
+              friendly_name: 'Offset Time'
+              value_template: >-
+                  {{ '%0.02d:%0.02d' | format( ((((states('input_number.alarm_1_hour') | int)*60 + (states('input_number.alarm_1_minutes') | int) - (states('input_number.alarm_1_offset'))| int)/60)| int),(((((((((states('input_number.alarm_1_hour') | int)*60 + (states('input_number.alarm_1_minutes') | int) - (states('input_number.alarm_1_offset')) | int)/60)) - ((((states('input_number.alarm_1_hour') | int)*60 + (states('input_number.alarm_1_minutes') | int) - (states('input_number.alarm_1_offset')) | int)/60)| int))*100) | int)*60/100) | round) ) }}
+
+group:
+    alarm_1:
+        name: Wake Me Up
+        entities:
+            - sensor.time
+            - sensor.alarm_1_time
+            - sensor.alarm_1_time_minus_offset
+            - input_number.alarm_1_hour
+            - input_number.alarm_1_minutes
+            - input_number.alarm_1_offset
+            - input_boolean.alarm_1_weekday
+            - input_boolean.alarm_1_weekend
+
+automation:
+  - id: 'alarm_1_weekday'
+    alias: Wake me up (weekday)
+    trigger:
+    - platform: time_pattern
+      minutes: /1
+      seconds: 0
+    condition:
+    - condition: state
+      entity_id: input_boolean.alarm_1_weekday
+      state: 'on'
+    - condition: time
+      weekday:
+      - mon
+      - tue
+      - wed
+      - thu
+      - fri
+    - condition: template
+      # value_template: '{{ states.sensor.time.state == states.sensor.alarm_1_time_minus_offset.state  }}'
+      value_template: '{{ states.sensor.time.state == states.sensor.alarm_1_time_minus_offset.state  }}'
+    action:
+    #- data:
+    #    message: Alarm ! Current time is {{ states.sensor.time.state }} and alarm is set to {{ states.sensor.alarm_1_time.state }} with an offset of {{ states.input_number.alarm_1_offset.state }} set to {{ states.sensor.alarm_1_time_minus_offset.state }} Weekdays ({{ states.input_boolean.alarm_1_weekday.state }} ) and Weekends ({{ states.input_boolean.alarm_1_weekend.state }} ) test {{ "%0.02d:%0.02d" | format(states("input_number.alarm_1_hour") | int, states("input_number.alarm_1_minutes") | int) }}
+    #  service: notify.zchat
+    - data: {}
+      service: script.wakeup_sequence
+  - id: 'alarm_1_weekend'
+    alias: Wake me up (weekend)
+    trigger:
+    - platform: time_pattern
+      minutes: /1
+      seconds: 0
+    condition:
+    - condition: state
+      entity_id: input_boolean.alarm_1_weekend
+      state: 'on'
+    - condition: time
+      weekday:
+      - sat
+      - sun
+    - condition: template
+      value_template: '{{ states.sensor.time.state == states.sensor.alarm_1_time_minus_offset.state  }}'
+    action:
+    #- data:
+    #    message: Alarm ! Current time is {{ states.sensor.time.state }} and alarm is set to {{ states.sensor.alarm_1_time.state }} with an offset of {{ states.input_number.alarm_1_offset.state }} set to {{ states.sensor.alarm_1_time_minus_offset.state }} Weekdays ({{ states.input_boolean.alarm_1_weekday.state }} ) and Weekends ({{ states.input_boolean.alarm_1_weekend.state }} ) test {{ "%0.02d:%0.02d" | format(states("input_number.alarm_1_hour") | int, states("input_number.alarm_1_minutes") | int) }}
+    #  service: notify.zchat
+    - data: {}
+      service: script.wakeup_sequence 
+      
+      
+# script:
+#   # 'wakeup_dim':
+#   #   alias: wakeup_dim
+#   #   sequence:
+#   #   # - data:
+#   #   #     brightness: '40'
+#   #   #     entity_id:
+#   #   #     - light.gateway_light_7c49eb1a6912
+#   #   #     kelvin: '2200'
+#   #   #     # transition: '0'
+#   #   #   service: light.turn_on
+#   #   - data:
+#   #       brightness: '40'
+#   #       entity_id:
+#   #       - light.gateway_light_286c07fa2642
+#   #       rgb_color:
+#   #       - 255
+#   #       - 169
+#   #       - 92
+#   #     service: light.turn_on
+#     # - data:
+#     #     brightness_pct: '50'
+#     #     entity_id:
+#     #     - light.gateway_light_286c07fa2642
+#     #     rgb_color:
+#     #     - 255
+#     #     - 169
+#     #     - 92
+#     #     transition: '0'
+#     #   service: light.turn_on
+#   'wakeup_bright':
+#     alias: wakeup_bright
+#     sequence:
+#     - data_template:
+#         brightness: '255'
+#         kelvin: '2700'
+#         transition: '{{(states(''input_number.alarm_1_offset'') | int ) *60}}'
+#         entity_id:
+#         - light.gateway_light_7c49eb1a6912
+#       service: light.turn_on
+#     # - data_template:
+#     #     brightness: '255'
+#     #     transition: '{{(states(''input_number.alarm_1_offset'') | int ) *60}}'
+#     #     entity_id:
+#     #     - light.gateway_light_7c49eb1a6912
+#     #     rgb_color:
+#     #     - 255
+#     #     - 169
+#     #     - 92
+#     #   service: light.turn_on
+#   'wakeup_sequence':
+#     alias: wakeup_sequence
+#     sequence:
+#     # - data:
+#     #     message: Alarm ! Current time is {{ states.sensor.time.state }} and alarm is set to {{ states.sensor.alarm_1_time.state }} with an offset of {{ states.input_number.alarm_1_offset.state }} set to {{ states.sensor.alarm_1_time_minus_offset.state }} Weekdays ({{ states.input_boolean.alarm_1_weekday.state }} ) and Weekends ({{ states.input_boolean.alarm_1_weekend.state }} ) 00:{{ states.input_number.alarm_1_offset.state | int }}:00
+#     #   service: notify.zchat
+#     # - data: {}
+#     #   service: script.wakeup_dim
+#     # - delay: 00:00:02
+#     - service: script.wakeup_bright
+#     - delay: '00:{{ states.input_number.alarm_1_offset.state | int }}:00'
+#     - data: {}
+#       entity_id: 
+#         - switch.sonoff
+#       service: switch.turn_on
+#     - delay: '00:60:00'
+#     - data: {}
+#       entity_id: 
+#         - switch.sonoff
+#       service: switch.turn_off
+#     - data: {}
+#       entity_id: 
+#         - light.gateway_light_7c49eb1a6912 
+#       service: light.turn_off 
+

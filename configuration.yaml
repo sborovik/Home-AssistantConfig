@@ -1,6 +1,6 @@
 homeassistant:
   # Name of the location where Home Assistant is running
-  name: my Awesome home
+  name: Awesome home
   # Location required to calculate the time the sun rises and sets
   latitude: !secret latitude
   longitude: !secret longitude
@@ -11,7 +11,11 @@ homeassistant:
   # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
   time_zone: Europe/Kiev
   # Customization file
-  customize: !include_dir_merge_named customize
+  # customize: !include_dir_merge_named customize
+  packages: !include_dir_named packages/
+  whitelist_external_dirs:
+    - '/home/homeassistant/.homeassistant/pic'
+#    - /home/pi/Pictures
 
 zone:
   - name: Home
@@ -38,22 +42,19 @@ config:
 
 # Uncomment this if you are using SSL/TLS, running in Docker container, etc.
 http:
-#  api_password: YOUR_PASSWORD
+  api_password: !secret apipass 
   ssl_certificate: !secret sslcert
   ssl_key: !secret sslkey
   base_url: !secret domainname
   ip_ban_enabled: true
   login_attempts_threshold: 5
 
+# api:
+
 duckdns:
   domain: !secret domainname
   access_token: !secret duckdnstoken
 
-# Checks for available updates
-# Note: This component will send some information about your system to
-# the developers to assist with development of Home Assistant.
-# For more information, please see:
-# https://home-assistant.io/blog/2016/10/25/explaining-the-updater/
 
 updater:
   # Optional, allows Home Assistant developers to focus on popular components.
@@ -72,7 +73,7 @@ history:
 logbook:
 
 recorder:
-  purge_keep_days: 10
+  # purge_keep_days: 10
 
 # Enables a map showing the location of tracked devices
 map:
@@ -91,14 +92,12 @@ cloud:
 mqtt:
   broker: 192.168.1.170
   port: 1883
-  client_id: homeassistant-1
+  #client_id: homeassistant-1
   username: !secret mqttuser
   password: !secret mqttpass
   # password: !secret mqttpass
-  # discovery: true
-  # discovery_prefix: homeassistant
-
-switch: !include_dir_merge_list switches/
+  discovery: true
+  discovery_prefix: homeassistant
 
 vacuum:
   - platform: xiaomi_miio
@@ -112,98 +111,44 @@ xiaomi_aqara:
     - mac: !secret mi_gateway_mac
       key: !secret mi_gateway_key
 
-######################
-# Climate - central heater
-######################
-climate:
-  - platform: generic_thermostat
-    name: Home gas Heater
-    heater: switch.gas_boiler
-    target_sensor: sensor.temperature_158d00023cf7f5
-    min_temp: 14
-    max_temp: 24
-    target_temp: 18
-    tolerance: 0.3
-    away_temp: 16
-
-
-  - platform: generic_thermostat
-    name: Rosik ceramik Heater
-    heater: switch.heater1
-    target_sensor: sensor.temperature_158d00024781ee
-    min_temp: 14
-    max_temp: 24
-    target_temp: 18
-    tolerance: 0.3
-    away_temp: 16
-
 device_tracker:
-  # - platform: google_maps
-  #   username: !secret googleuser
-  #   password: !secret googlepasswd
   - platform: bluetooth_tracker
     interval_seconds: 120
     new_device_defaults:
       track_new_devices: false
 
-  - platform: ping
-    interval_seconds: 60
-    consider_home: 1200
-    hosts:
-      serj_phone: 192.168.1.134
+#  - platform: ping
+#    interval_seconds: 60
+#    consider_home: 1200
+#    hosts:
+#      serj_phone: 192.168.1.134
 
   - platform: icloud
     username: !secret icloudusername
     password: !secret icloudpasswd
     account_name: Ol4uk
     max_interval: 20
-    icon: mdi:cellphone-iphone
     track_new_devices: true
-    track: yes
-    hide_if_away: false
-    track_ios: true
-    #icon: mdi:face
 
-input_number:
-    bedroomtimer:
-     name: Таймер сну
-     icon: mdi:timer
-     #name: 'sleep timer'
-     initial: 20
-     min: 5
-     max: 50
-     step: 5
+  - platform: google_maps
+    username: !secret googlemapsusername 
+    password: !secret googlemapspassword 
 
-    house_temp:
-     name: Температура 
-     icon: mdi:timer
-     initial: 18
-     min: 14
-     max: 24
-     step: 0.5
-    
-    rosikroomtimer:
-     name: Таймер опалення
-     icon: mdi:timer
-     #name: 'sleep timer'
-     initial: 30
-     min: 10
-     max: 60
-     step: 10
+person:
+  - name: Ol4uk
+    id: ol4uk18
+    device_trackers:
+      - device_tracker.iphone6
+      - device_tracker.iphone6_bt
 
-weather:
-  - platform: darksky
-    api_key: !secret darkskyapi
-    mode: daily
+  - name: Serj
+    id: Serj88
+    device_trackers:
+      - device_tracker.nexus_6p_bt
+      - device_tracker.google_maps_118095117966834362307
+
 
 binary_sensor: 
-  - platform: mqtt
-    name: Rosik's heater
-    device_class: heat
-    state_topic: "/heater1/gpio/12"
-    payload_on: "1"
-    payload_off: "0"
-
   - platform: command_line
     name: Mosquitto 
     command: sudo systemctl status mosquitto.service | awk 'FNR==3 { print $3 }' 
@@ -222,11 +167,43 @@ notify:
     platform: telegram
     chat_id: !secret tg_chat_id
 
-# logger:
+logger:
+  default: fatal 
 
-group: !include groups.yaml
-automation: !include_dir_merge_list automation/
+google_assistant:
+  project_id: !secret goole_project_id 
+  api_key: !secret google_api_key 
+  exposed_domains:
+    - switch
+    - light
+    - climate
+    - script
+#lovelace:
+#  mode: yaml
+
+media_player:
+  - platform: xiaomi_miio_gateway
+    host: 192.168.1.105
+    token: !secret mi_gateway_token
+
+system_health:
+
+shopping_list:
+
+fastdotcom: 
+
+# speedtestdotnet:
+
+# light:
+#   - platform: switch
+#     name: bedroom light
+#     entity_id: switch.sonoff
+
+# group: !include groups.yaml
+
+# automation: !include_dir_merge_list automation/
 # automation: !include automations.yaml
 script: !include scripts.yaml
 sensor: !include_dir_merge_list sensors/
 shell_command: !include shell/shell_commands.yaml
+
