@@ -192,18 +192,15 @@ shopping_list:
 
 fastdotcom: 
 
-# speedtestdotnet:
-
+script: !include scripts.yaml
+sensor: !include_dir_merge_list sensors/
 # light:
 #   - platform: switch
 #     name: bedroom light
 #     entity_id: switch.sonoff
 
 # group: !include groups.yaml
-
 # automation: !include_dir_merge_list automation/
 # automation: !include automations.yaml
-script: !include scripts.yaml
-sensor: !include_dir_merge_list sensors/
-shell_command: !include shell/shell_commands.yaml
+#shell_command: !include shell/shell_commands.yaml
 
