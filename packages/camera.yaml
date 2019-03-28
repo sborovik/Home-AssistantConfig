@@ -17,6 +17,8 @@ automation:
     action:
       - service: switch.turn_on 
         entity_id: switch.dafang_motion_send_telegram
+      - service: switch.turn_on 
+        entity_id: switch.dafang_motion_detection
       - service: telegram_bot.send_message
         data:
           title: 'camera motion detection'
@@ -31,6 +33,8 @@ automation:
     action:
       - service: switch.turn_off
         entity_id: switch.dafang_motion_send_telegram
+      - service: switch.turn_off
+        entity_id: switch.dafang_motion_detection
       - service: telegram_bot.send_message
         data:
           title: 'camera motion detection'

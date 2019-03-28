@@ -1,5 +1,6 @@
 *
 !*.yaml
+!*.sh
 !.gitignore
 !bash/
 !automation/
@@ -16,3 +17,10 @@ known_devices.yaml
 .shopping_list.json
 .google_maps_location_sharing.cookies
 shell_commands.yaml
+known_devices.yaml
+ip_bans.yaml
+.uuid
+.storage
+.cloud
+
+
