@@ -191,7 +191,8 @@ system_health:
 
 shopping_list:
 
-fastdotcom: 
+#test inet speed
+fastdotcom:
 
 script: !include scripts.yaml
 sensor: !include_dir_merge_list sensors/
