@@ -1,0 +1,198 @@
+homeassistant:
+  name: Awesome home
+  latitude: !secret latitude
+  longitude: !secret longitude
+  elevation: 300
+  unit_system: metric
+  time_zone: Europe/Kiev
+  packages: !include_dir_named packages/
+  whitelist_external_dirs:
+
+influxdb:
+  host: a0d7b954-influxdb
+  port: 8086
+  database: homeassistant
+  username: homeassistant
+  password: homeassistant
+  max_retries: 3
+  default_measurement: state
+
+# lovelace:
+#   mode: yaml
+
+zone:
+  - name: Home
+    latitude: !secret latitude
+    longitude: !secret longitude
+    radius: 100
+    icon: mdi:home-automation
+
+  - name: Ol4uk Work
+    latitude: !secret wolatitude
+    longitude: !secret wolongitude
+    radius: 150
+    icon: mdi:office-building
+
+  - name: Serhs office
+    latitude: !secret solatitude
+    longitude: !secret solongitude
+    radius: 150
+    icon: mdi:office-building
+
+frontend:
+    themes: !include_dir_merge_named themes
+
+config:
+    custom_components
+    ngrok
+      __init__.py
+
+api:
+
+http:
+  base_url: !secret ha_base_url
+
+updater:
+
+# Discover some devices automatically
+#discovery:
+
+# Allows you to issue voice commands from the frontend in enabled browsers
+conversation:
+
+history:
+
+logbook:
+
+recorder:
+  purge_keep_days: 31
+  purge_interval: 2
+  # include:
+  #   domains:
+  #     - sensor
+  #     - switch
+  #     - binary_sensor
+  #     - climate
+      # - device_tracker
+  # exclude:
+  #  entities:
+  #    - sensor.time
+  #    - sensor.memory_free
+  #    - group.all_lights
+  #    - light.gateway_light_7c49eb1a6912
+  #    - sensor.pi_cpu_temp
+  #    - weather.dark_sky
+  #    - sensor.illumination_7c49eb1a6912 
+  #    - sun.sun
+
+map:
+
+sun:
+
+tts:
+  - platform: google_translate
+    service_name: google_say
+
+cloud:
+
+mqtt:
+  broker: !secret mqttip
+  port: 1883
+  username: !secret mqttuser
+  password: !secret mqttpass
+  discovery: true
+  discovery_prefix: ha
+
+vacuum:
+  - platform: xiaomi_miio
+    discovery_retry: 5
+    host: !secret ipvacuum
+    token: !secret xiaomi_vacuum_token
+
+xiaomi_aqara:
+  discovery_retry: 10
+  gateways:
+    - mac: !secret mi_gateway_mac
+      key: !secret mi_gateway_key
+
+device_tracker:
+  - platform: bluetooth_tracker
+    interval_seconds: 120
+    new_device_defaults:
+      track_new_devices: false
+
+  - platform: icloud
+    username: !secret icloudusername
+    password: !secret icloudpasswd
+    account_name: Ol4uk
+    max_interval: 20
+    track_new_devices: true
+
+  - platform: google_maps
+    username: !secret googlemapsusername
+
+person:
+
+binary_sensor: 
+
+  - platform: workday
+    country: UA
+    # workdays: [mon, tue, wed, thur, fri]
+    # excludes: [sat, sun, holiday]
+    # add_holidays:
+    #   - '2018-12-26'
+    #   - '2018-12-31'
+
+telegram_bot:
+  - platform: polling
+    api_key: !secret tg_api_key
+    allowed_chat_ids:
+      - !secret tg_chat_id
+ 
+notify:
+  - name: NOTIFIER_NAME
+    platform: telegram
+    chat_id: !secret tg_chat_id
+
+logger:
+  default: fatal 
+
+google_assistant:
+  project_id: !secret goole_project_id 
+  api_key: !secret google_api_key 
+  exposed_domains:
+    - switch
+    - light
+    - climate
+    - script
+
+light:
+  - platform: switch
+    name: Christmas House Lights
+    entity_id: switch.sonoff_1
+
+group:
+#   kitchen:
+#     name: Kitchen
+#     entities:
+#       - switch.kitchen_pin_3
+  climate:
+    name: Home_temp
+    entities:
+      - sensor.temperature_158d00024781ee
+      - sensor.temperature_158d0002b55ab6
+  all_devices:
+    name: Awesome People
+    entities:
+      - device_tracker.google_maps_118095117966834362307
+      - device_tracker.mi9se_bt
+
+system_health:
+
+shopping_list:
+
+fastdotcom: 
+
+script: !include scripts.yaml
+sensor: !include_dir_merge_list sensors/
+automation: !include automations.yaml

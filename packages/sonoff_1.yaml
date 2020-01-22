@@ -1,0 +1,21 @@
+ #outdoor light
+input_number:
+  bedroomtimer:
+    name: Таймер авто вимкнення
+    icon: mdi:timer
+    initial: 20
+    min: 5
+    max: 50
+    step: 5
+
+switch:
+  - platform: mqtt
+    name: sonoff_1
+    icon: mdi:outdoor-lamp #lamp string-lights
+    # state_topic: "/sonoff/relay/state"
+    state_topic: 'cmnd/sonoff_1/POWER' #'stat/sonoff_1/POWER'
+    command_topic: 'cmnd/sonoff_1/POWER'
+#    qos: 1
+    payload_on: 'ON'
+    payload_off: 'OFF'
+    retain: true

@@ -1,0 +1,16 @@
+- platform: rest
+  scan_interval: 600
+  resource: http://ip.jsontest.com
+  name: External IP
+  value_template: '{{ value_json.ip }}'
+
+- platform: rest
+  resource: https://pypi.python.org/pypi/homeassistant/json
+  name: HA Last version
+  value_template: '{{ value_json.info.version }}'
+
+- platform: time_date
+  display_options:
+   - 'time'
+   - 'date'
+

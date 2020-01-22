@@ -1,0 +1,13 @@
+#bedroom light
+switch:
+  - platform: mqtt
+    name: sonoff_2
+    icon: mdi:outdoor-lamp #lamp string-lights
+    # state_topic: "/sonoff/relay/state"
+    state_topic: 'cmnd/sonoff_2/POWER' #"stat/sonoff_2/POWER"
+    command_topic: 'cmnd/sonoff_2/POWER'
+#    qos: 1
+    payload_on: 'ON'
+    payload_off: 'OFF'
+    retain: true
+

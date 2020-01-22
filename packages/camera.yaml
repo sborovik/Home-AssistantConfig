@@ -1,0 +1,55 @@
+camera:
+  - platform: generic
+    name: DaFang
+    username: !secret dafcamlogin
+    password: !secret dafcampass
+    authentication: basic
+    still_image_url: !secret dafangip
+    verify_ssl: false
+    scan_interval: 5
+
+  - platform: generic
+    name: DaFang-2
+    username: !secret dafcamlogin  
+    password: !secret dafcampass
+    authentication: basic
+    still_image_url: !secret dafang2ip
+    verify_ssl: false
+    scan_interval: 5
+
+automation:
+  - alias: Start motion detection when not at home 
+    trigger:
+        platform: state
+        entity_id: group.all_devices
+        to: not_home
+    action:
+      - service: switch.turn_on 
+        entity_id: switch.dafang_motion_send_telegram
+      - service: switch.turn_on 
+        entity_id: switch.dafang_motion_detection
+      - service: switch.turn_on 
+        entity_id: switch.dafang_motion_detection_2
+      - service: telegram_bot.send_message
+        data:
+          title: 'camera motion detection'
+          message: 'is on' 
+
+
+  - alias: Stop motion detection when at home
+    trigger:
+        platform: state
+        entity_id: group.all_devices
+        to: home
+    action:
+      - service: switch.turn_off
+        entity_id: switch.dafang_motion_send_telegram
+      - service: switch.turn_off
+        entity_id: switch.dafang_motion_detection
+      - service: switch.turn_off
+        entity_id: switch.dafang_motion_detection_2
+      - service: telegram_bot.send_message
+        data:
+          title: 'camera motion detection'
+          message: 'is off' 
+

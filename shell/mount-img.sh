@@ -1,0 +1,1 @@
+mount -o norecovery,loop -t ext4 $1 /img 

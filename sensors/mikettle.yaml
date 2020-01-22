@@ -1,0 +1,10 @@
+- platform: mikettle
+  mac: 'AB:CD:EF:12:34:56'
+  product_id: 275
+  monitored_conditions:
+    - action
+    - mode
+    - set temperature
+    - current temperature
+    - keep warm type
+    - keep warm time

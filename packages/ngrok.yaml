@@ -1,0 +1,19 @@
+ngrok:
+  auth_token: !secret ngrok_auth_token
+  os_version: 'Linux (ARM)'
+  ip_address: !secret ngrok_ip_address
+  port: 8123
+  protocol: 'http'
+
+automation: 
+  - alias: "Ngrok Public URL"
+    hide_entity: true
+    initial_state: 'true'
+    trigger:
+      platform: state
+      entity_id: ngrok.public_url
+    action:
+    - service: telegram_bot.send_message
+      data:
+        title: '*Server hassio*'
+        message: 'Current url: {{ states.ngrok.public_url.state }}' 

@@ -1,0 +1,13 @@
+*
+!*.yaml
+!*.sh
+!.gitignore
+!sensors/
+!shell/
+!switches/
+!packages/
+!themes/
+!custom_components/
+secrets.yaml
+known_devices.yaml
+!.HA_VERSION

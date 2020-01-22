@@ -1,0 +1,185 @@
+- id: '1574689358320'
+  alias: 'temp evening on '
+  description: ''
+  trigger:
+  - at: '17:00'
+    platform: time
+  condition:
+  - condition: state
+    entity_id: binary_sensor.workday_sensor
+    state: 'on'
+  action:
+  - data:
+      entity_id: climate.home_gas_heater
+      temperature: 20
+    service: climate.set_temperature
+- id: '1574689586863'
+  alias: temp evening off
+  description: ''
+  trigger:
+  - at: '22:00'
+    platform: time
+  condition: []
+  action:
+  - alias: ''
+    data:
+      entity_id: climate.home_gas_heater
+      temperature: 19
+    service: climate.set_temperature
+- id: '1574689710118'
+  alias: 'temp morning on '
+  description: ''
+  trigger:
+  - at: 06:00
+    platform: time
+  condition:
+  - condition: state
+    entity_id: binary_sensor.workday_sensor
+    state: 'on'
+  action:
+  - data:
+      entity_id: climate.home_gas_heater
+      temperature: 20
+    service: climate.set_temperature
+- id: '1574689769710'
+  alias: temp morning off
+  description: ''
+  trigger:
+  - at: 07:00
+    platform: time
+  condition:
+  - condition: state
+    entity_id: binary_sensor.workday_sensor
+    state: 'on'
+  action:
+  - data:
+      entity_id: climate.home_gas_heater
+      temperature: 17
+    service: climate.set_temperature
+- id: '1574690597493'
+  alias: temp set away
+  description: ''
+  trigger:
+  - entity_id: group.all_devices
+    from: home
+    platform: state
+    to: not_home
+  condition: []
+  action:
+  - data:
+      entity_id: climate.home_gas_heater
+      preset_mode: away
+    service: climate.set_preset_mode
+- id: '1574690651854'
+  alias: temp set home
+  description: ''
+  trigger:
+  - entity_id: group.all_devices
+    from: not_home
+    platform: state
+    to: home
+  condition: []
+  action:
+  - data:
+      entity_id: climate.home_gas_heater
+      preset_mode: none
+    service: climate.set_preset_mode
+- id: '1574690857260'
+  alias: temp Rosik on evening
+  description: ''
+  trigger:
+  - at: '21:30'
+    platform: time
+  condition:
+  - condition: state
+    entity_id: group.all_devices
+    state: home
+  action:
+  - data:
+      entity_id: climate.rosik_ceramik_heater
+      hvac_mode: heat
+      temperature: 20.5
+    service: climate.set_temperature
+  - data:
+      entity_id: climate.rosik_ceramik_heater
+    service: climate.turn_on
+- id: '1574690919444'
+  alias: temp Rosik off morning
+  description: ''
+  trigger:
+  - at: 06:40
+    platform: time
+  condition: []
+  action:
+  - data:
+      entity_id: climate.rosik_ceramik_heater
+    service: climate.turn_off
+- id: '1577555208669'
+  alias: 'turn on Christmas house lights '
+  description: when back home
+  trigger:
+  - entity_id: group.all_devices
+    from: not_home
+    platform: state
+    to: home
+  condition:
+  - condition: state
+    entity_id: sun.sun
+    state: below_horizon
+  action:
+  - entity_id: light.christmas_house_lights
+    service: light.turn_on
+  - entity_id: light.gateway_light_7c49eb1a6912
+    service: light.turn_on
+- id: '1577556225515'
+  alias: turn off Christmas house lights
+  description: ''
+  trigger:
+  - at: '22:00'
+    platform: time
+  condition: []
+  action:
+  - entity_id: light.christmas_house_lights
+    service: light.turn_off
+  - entity_id: light.gateway_light_7c49eb1a6912
+    service: light.turn_off
+- id: '1577601396751'
+  alias: 'turn on Christmas house lights when at home '
+  description: after sunset
+  trigger:
+  - entity_id: sun.sun
+    from: above_horizon
+    platform: state
+    to: below_horizon
+  condition:
+  - condition: state
+    entity_id: group.all_devices
+    state: home
+  action:
+  - entity_id: light.christmas_house_lights
+    service: light.turn_on
+  - entity_id: light.gateway_light_7c49eb1a6912
+    service: light.turn_on
+- id: '1578037052020'
+  alias: 'wake me up on workdays '
+  description: ''
+  trigger:
+  - at: 06:20
+    platform: time
+  condition:
+  - condition: state
+    entity_id: binary_sensor.workday_sensor
+    state: 'on'
+  action:
+  - entity_id: switch.sonoff_2
+    service: switch.turn_on
+- id: '1578037161607'
+  alias: 'wake me up off workdays '
+  description: ''
+  trigger:
+  - at: 07:05
+    platform: time
+  condition: []
+  action:
+  - entity_id: switch.sonoff_2
+    service: switch.turn_off
