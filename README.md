@@ -1,7 +1,7 @@
 # Home-AssistantConfig
-### My smart home hardware 
+### My smart home's core  
 
-  - Raspberry Pi 3 Model B Plus Rev 1.3 with Raspbian GNU/Linux 10 (buster) armv7l
+  - Raspberry Pi 3 Model B Plus Rev 1.3 with [Home Assistant](https://www.home-assistant.io/) in docker on Raspbian GNU/Linux 10 (buster) armv7l 
   - Sonoff basic switches with [tasmota](https://github.com/arendst/Tasmota) firmware 
   - Xiaomi mi gateway 2 (plan to replace by ZigBee usb-stick)
   - Aqara temperature / humidity / pressure sensor
