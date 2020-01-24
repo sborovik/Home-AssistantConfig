@@ -19,11 +19,13 @@ switch:
     payload_off: "0"
     retain: true 
 
+# sensor.temperature_158d000272e9d3 # IV living
+# sensor.temperature_158d0002b55ab6 # III kitchen
 climate:
   - platform: generic_thermostat
     name: Home gas Heater
     heater: switch.gas_boiler
-    target_sensor: sensor.temperature_158d00023cf7f5
+    target_sensor: sensor.temperature_158d00023cf7f5 # II bedroom
     min_temp: 14
     max_temp: 22
     target_temp: 17
@@ -34,7 +36,7 @@ climate:
   - platform: generic_thermostat
     name: Rosik ceramik Heater
     heater: switch.heater1
-    target_sensor: sensor.temperature_158d00024781ee
+    target_sensor: sensor.temperature_158d00024781ee  # I kids
     min_temp: 14
     max_temp: 22
     target_temp: 17
