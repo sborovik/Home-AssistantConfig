@@ -47,7 +47,7 @@ config:
     ngrok
       __init__.py
 
-api:
+#api:
 
 http:
   base_url: !secret ha_base_url
@@ -119,14 +119,14 @@ device_tracker:
   - platform: bluetooth_tracker
     interval_seconds: 120
     new_device_defaults:
-      track_new_devices: false
+    track_new_devices: false
 
-  - platform: icloud
-    username: !secret icloudusername
-    password: !secret icloudpasswd
-    account_name: Ol4uk
-    max_interval: 20
-    track_new_devices: true
+#  - platform: icloud
+#    username: !secret icloudusername
+#    password: !secret icloudpasswd
+#    account_name: Ol4uk
+#    max_interval: 20
+#    track_new_devices: true
 
   - platform: google_maps
     username: !secret googlemapsusername
@@ -186,6 +186,8 @@ group:
     entities:
       - device_tracker.google_maps_118095117966834362307
       - device_tracker.mi9se_bt
+      - device_tracker.iphone_bt
+      - device_tracker.iphone
 
 system_health:
 
