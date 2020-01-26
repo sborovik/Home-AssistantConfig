@@ -187,7 +187,7 @@ group:
       - device_tracker.google_maps_118095117966834362307
       - device_tracker.mi9se_bt
       - device_tracker.iphone_bt
-      - device_tracker.iphone
+    #   - device_tracker.iphone
 
 system_health:
 
