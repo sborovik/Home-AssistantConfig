@@ -74,15 +74,15 @@ recorder:
   #     - binary_sensor
   #     - climate
       # - device_tracker
-  # exclude:
-  #  entities:
-  #    - sensor.time
-  #    - sensor.memory_free
+  exclude:
+    entities:
+     - sensor.time
+     - sensor.memory_free
+     - sensor.pi_cpu_temp
   #    - group.all_lights
   #    - light.gateway_light_7c49eb1a6912
-  #    - sensor.pi_cpu_temp
   #    - weather.dark_sky
-  #    - sensor.illumination_7c49eb1a6912 
+  #    - sensor.illumination_7c49eb1a6912
   #    - sun.sun
 
 map:
@@ -121,6 +121,7 @@ device_tracker:
     new_device_defaults:
     track_new_devices: false
 
+#   configured via integration 
 #  - platform: icloud
 #    username: !secret icloudusername
 #    password: !secret icloudpasswd
@@ -133,7 +134,7 @@ device_tracker:
 
 person:
 
-binary_sensor: 
+binary_sensor:
 
   - platform: workday
     country: UA
@@ -148,18 +149,18 @@ telegram_bot:
     api_key: !secret tg_api_key
     allowed_chat_ids:
       - !secret tg_chat_id
- 
+
 notify:
   - name: NOTIFIER_NAME
     platform: telegram
     chat_id: !secret tg_chat_id
 
 logger:
-  default: fatal 
+  default: fatal
 
 google_assistant:
-  project_id: !secret goole_project_id 
-  api_key: !secret google_api_key 
+  project_id: !secret goole_project_id
+  api_key: !secret google_api_key
   exposed_domains:
     - switch
     - light
