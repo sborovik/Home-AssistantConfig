@@ -1,5 +1,7 @@
 *
 !*.yaml
+secrets.yaml
+known_devices.yaml
 !*.sh
 !.gitignore
 !sensors/
@@ -7,8 +9,8 @@
 !switches/
 !packages/
 !themes/
-!custom_components/
-secrets.yaml
-known_devices.yaml
+!/custom_components/*
 !.HA_VERSION
 !README.md
+!www/*
+!www/**
