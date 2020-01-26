@@ -13,4 +13,3 @@ known_devices.yaml
 !.HA_VERSION
 !README.md
 !www/*
-!www/**
