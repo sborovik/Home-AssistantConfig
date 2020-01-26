@@ -37,6 +37,8 @@ automation:
           title: 'camera motion detection'
           message: 'is on' 
 
+
+
   - alias: Stop motion detection when at home
     trigger:
         platform: state
