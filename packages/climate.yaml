@@ -1,4 +1,4 @@
-switch: 
+switch:
   - platform: mqtt
     name: gas boiler #sonoff_0
     icon: mdi:radiator
@@ -17,49 +17,69 @@ switch:
     command_topic: "/heater1/gpio/12"
     payload_on: "1"
     payload_off: "0"
-    retain: true 
+    retain: true
 
 # sensor.temperature_158d000272e9d3 # IV living
 # sensor.temperature_158d0002b55ab6 # III kitchen
+# sensor.temperature_158d00023cf7f5 # II bedroom
 climate:
   - platform: generic_thermostat
-    name: Home gas Heater
+    name: Living
     heater: switch.gas_boiler
-    target_sensor: sensor.temperature_158d00023cf7f5 # II bedroom
+    target_sensor: sensor.temperature_158d000272e9d3 # IV living
     min_temp: 14
-    max_temp: 22
+    max_temp: 23
     target_temp: 17
 #    tolerance: 0.2  //not accepted on 0.88
     away_temp: 16
 
+  - platform: generic_thermostat
+    name: Kitchen
+    heater: switch.gas_boiler
+    target_sensor: sensor.temperature_158d0002b55ab6 # III kitchen
+    min_temp: 14
+    max_temp: 23
+    target_temp: 17
+#    tolerance: 0.2  //not accepted on 0.88
+    away_temp: 16
+
+  - platform: generic_thermostat
+    name: Bedroom
+    heater: switch.gas_boiler
+    target_sensor: sensor.temperature_158d00023cf7f5 # II bedroom
+    min_temp: 14
+    max_temp: 23
+    target_temp: 17
+#    tolerance: 0.2  //not accepted on 0.88
+    away_temp: 16
 
   - platform: generic_thermostat
     name: Rosik ceramik Heater
     heater: switch.heater1
     target_sensor: sensor.temperature_158d00024781ee  # I kids
     min_temp: 14
-    max_temp: 22
+    max_temp: 23
     target_temp: 17
 #    tolerance: 0.2   //not accepted on 0.88
     away_temp: 16
 
-# automation: 
+# automation:
 #   - alias: climate leave home
 #     trigger:
 #       platform: state
 #       entity_id: group.all_devices
 #       to: not_home
 #     action:
-#     # data: {}  
+#     # data: {}
 #       - service: climate.set_away_mode
 #         entity_id: climate.home_gas_heater
-#         data: 
+#         data:
 #           away_mode: true
 #       - service: climate.set_away_mode
 #         entity_id: climate.rosik_ceramik_heater
-#         data: 
+#         data:
 #           away_mode: true
-    
+
 #   - alias: climate at home
 #     trigger:
 #       platform: state
@@ -67,24 +87,24 @@ climate:
 #       to: home
 #     action:
 #     - service: climate.set_away_mode
-#       data_template: 
+#       data_template:
 #         entity_id: climate.home_gas_heater
 #         away_mode: 'off'
 #     - service: climate.set_away_mode
-#       data_template: 
+#       data_template:
 #         entity_id: climate.rosik_ceramik_heater
 #         away_mode: 'off'
 
-#   - alias: climate morning work days 
+#   - alias: climate morning work days
 #     trigger:
 #       platform: time
 #       at: '07:00:00'
 #     action:
 #     - service: climate.turn_off
-#       data_template: 
+#       data_template:
 #         entity_id: climate.rosik_ceramik_heater
 #     # - service: climate.set_away_mode
-#     #   data_template: 
+#     #   data_template:
 #     #     entity_id: climate.home_gas_heater
 #     #     away_mode: 'on'
 #     - service: climate.set_temperature
@@ -93,17 +113,16 @@ climate:
 #         temperature: 16
 #         operation_mode: Heat
 
-#   - alias: climate evening work days 
+#   - alias: climate evening work days
 #     trigger:
 #       platform: time
 #       at: '23:00:00'
 #     action:
 #     - service: climate.turn_on
-#       data_template: 
+#       data_template:
 #         entity_id: climate.rosik_ceramik_heater
 #     - service: climate.set_temperature
 #       data:
 #         entity_id: climate.rosik_ceramik_heater
 #         temperature: 20
 #         operation_mode: Heat
-
