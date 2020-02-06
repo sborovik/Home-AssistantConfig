@@ -20,24 +20,25 @@ influxdb:
 # lovelace:
 #   mode: yaml
 
-zone:
-  - name: Home
-    latitude: !secret latitude
-    longitude: !secret longitude
-    radius: 100
-    icon: mdi:home-automation
+# config over UI
+# zone:
+#   - name: Home
+#     latitude: !secret latitude
+#     longitude: !secret longitude
+#     radius: 100
+#     icon: mdi:home-automation
 
-  - name: Ol4uk Work
-    latitude: !secret wolatitude
-    longitude: !secret wolongitude
-    radius: 150
-    icon: mdi:office-building
+#   - name: Ol4uk Work
+#     latitude: !secret wolatitude
+#     longitude: !secret wolongitude
+#     radius: 150
+#     icon: mdi:office-building
 
-  - name: Serhs office
-    latitude: !secret solatitude
-    longitude: !secret solongitude
-    radius: 150
-    icon: mdi:office-building
+#   - name: Serhs office
+#     latitude: !secret solatitude
+#     longitude: !secret solongitude
+#     radius: 150
+#     icon: mdi:office-building
 
 frontend:
     themes: !include_dir_merge_named themes
@@ -158,14 +159,15 @@ notify:
 logger:
   default: fatal
 
-google_assistant:
-  project_id: !secret goole_project_id
-  api_key: !secret google_api_key
-  exposed_domains:
-    - switch
-    - light
-    - climate
-    - script
+# require modification
+# google_assistant:  
+#   project_id: !secret goole_project_id
+#   api_key: !secret google_api_key
+#   exposed_domains:
+#     - switch
+#     - light
+#     - climate
+#     - script
 
 light:
   - platform: switch
